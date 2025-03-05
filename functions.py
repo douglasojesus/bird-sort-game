@@ -61,12 +61,14 @@ def verifica_se_pode_voar(tabuleiro, origem, destino): # origem e destino devem 
     return False
 
 def realiza_voo_passaro(tabuleiro, origem, destino):
-    if verifica_se_pode_voar(tabuleiro, origem, destino):
-        tabuleiro[destino].append(tabuleiro[origem][-1])
-        tabuleiro[origem].pop()
-        verifica_se_pilha_esta_completa(tabuleiro)
-        return tabuleiro
-    return False
+    # Verifica se o galho de origem não está quebrado ('X') e se o galho de destino não está quebrado
+    if tabuleiro[origem] != 'X' and tabuleiro[destino] != 'X':
+        if verifica_se_pode_voar(tabuleiro, origem, destino):
+            tabuleiro[destino].append(tabuleiro[origem][-1])
+            tabuleiro[origem].pop()
+            verifica_se_pilha_esta_completa(tabuleiro)
+            return tabuleiro
+    return False    
 
 def verifica_se_sao_todos_iguais(galho):
     qntd = 0

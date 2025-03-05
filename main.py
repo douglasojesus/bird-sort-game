@@ -1,4 +1,5 @@
 from functions import *
+import algorithms
 
 def main():
     galhos = int(input('Número de galhos: '))
@@ -13,20 +14,32 @@ def main():
     for i in range(galhos+2):
         possiveis_escolhas_origem_destino[i+1] = 'Galho '+str(i+1)
 
-    while True:
-        
-        escolha_origem = int(input("Escolha o galho de origem: "))        
-        escolha_destino = int(input("Escolha o galho de destino: "))
+    modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
+    if modo == 'S':
+        print("\nResolvendo o jogo com BFS...")
+        solucao = algorithms.resolver_com_bfs(tabuleiro)
+        if solucao:
+            print(f"Solução encontrada em {len(solucao)} movimentos!")
+            print("Sequência de movimentos:")
+            for movimento in solucao:
+                print(f"Mover de {movimento[0]} para {movimento[1]}")
+        else:
+            print("Não foi possível encontrar uma solução.")
+    else:
+        while True:
+            
+            escolha_origem = int(input("Escolha o galho de origem: "))        
+            escolha_destino = int(input("Escolha o galho de destino: "))
 
-        while not (realiza_voo_passaro(tabuleiro, possiveis_escolhas_origem_destino[escolha_origem], possiveis_escolhas_origem_destino[escolha_destino])):
-            print(f"Pássaro não pode sair da origem {possiveis_escolhas_origem_destino[escolha_origem]} e ir para o destino {possiveis_escolhas_origem_destino[escolha_destino]}.")
-            escolha_origem = int(input("Escolha outro galho de origem: "))
-            escolha_destino = int(input("Escolha outro galho de destino: "))
+            while not (realiza_voo_passaro(tabuleiro, possiveis_escolhas_origem_destino[escolha_origem], possiveis_escolhas_origem_destino[escolha_destino])):
+                print(f"Pássaro não pode sair da origem {possiveis_escolhas_origem_destino[escolha_origem]} e ir para o destino {possiveis_escolhas_origem_destino[escolha_destino]}.")
+                escolha_origem = int(input("Escolha outro galho de origem: "))
+                escolha_destino = int(input("Escolha outro galho de destino: "))
 
-        if verifica_se_ganhou(tabuleiro):
-            print("Parabéns!")
-            break
-        exibe_tabuleiro(tabuleiro)
+            if verifica_se_ganhou(tabuleiro):
+                print("Parabéns!")
+                break
+            exibe_tabuleiro(tabuleiro)
 
 
 
