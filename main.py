@@ -1,5 +1,5 @@
 from functions import *
-import algorithms
+import algorithm
 
 # criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
 # ele insere os galhos e como eles vão estar ajustados, ao invés de aleatoriamente
@@ -22,29 +22,15 @@ def main():
 
     modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
     if modo == 'S':
-        print("\nResolvendo o jogo com BFS...")
-        solucao, tempo_bfs = algorithms.resolver_com_bfs(tabuleiro)
-
-        if solucao:
-            print(f"Solução encontrada em {len(solucao)} movimentos!")
-            print(f"Solução encontrada em {tempo_bfs} segundos.")
-            print("Sequência de movimentos:")
-            for movimento in solucao:
-                print(f"Mover de {movimento[0]} para {movimento[1]}")
-        else:
-            print("Não foi possível encontrar uma solução.")
-
+        #print("\nResolvendo o jogo com BFS...")
+        #bfs = algorithm.Algoritmo()
+        #bfs.resolver_com_bfs(tabuleiro)
+        #bfs.exibe()
+        
         print("\nResolvendo o jogo com DFS...")
-        solucao, tempo_dfs = algorithms.resolver_com_dfs(tabuleiro)
-
-        if solucao:
-            print(f"Solução encontrada em {len(solucao)} movimentos!")
-            print(f"Solução encontrada em {tempo_dfs} segundos.")
-            print("Sequência de movimentos:")
-            for movimento in solucao:
-                print(f"Mover de {movimento[0]} para {movimento[1]}")
-        else:
-            print("Não foi possível encontrar uma solução.")
+        dfs = algorithm.Algoritmo()
+        dfs.resolver_com_dfs(tabuleiro)
+        dfs.exibe()
 
     else:
         while True:
