@@ -1,5 +1,5 @@
-from functions import *
-import algorithm
+from src.functions import *
+import src.algorithm as algorithm
 
 # criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
 # ele insere os galhos e como eles vão estar ajustados, ao invés de aleatoriamente
@@ -49,4 +49,5 @@ def main():
             exibe_tabuleiro(tabuleiro)
 
 
-main()
+if __name__ == '__main__':
+    main()
