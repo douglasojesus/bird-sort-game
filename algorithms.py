@@ -67,8 +67,12 @@ def resolver_com_dfs(tabuleiro):
         visitados.add(estado_tuple)
 
         # Gera todos os movimentos possíveis
+        print("Estado atual: ", estado_atual, '\n')
         for origem in estado_atual:
+            print("Origem: ", origem)
             for destino in estado_atual:
+                # Para cada galho verifica se pode migrar para outro galho de destino, não sendo o mesmo galho e nem um galho quebrado.
+                print("Destino: ", destino)
                 if origem != destino and estado_atual[origem] and estado_atual[destino] != 'X':
                     # Cria uma cópia do estado atual, tratando galhos quebrados ('X')
                     novo_estado = {}
@@ -78,11 +82,14 @@ def resolver_com_dfs(tabuleiro):
                         else:
                             novo_estado[k] = v.copy()
 
+                    print("Novo estado: ", novo_estado)
+
                     if verifica_se_pode_voar(novo_estado, origem, destino):
                         realiza_voo_passaro(novo_estado, origem, destino)
                         # Verifica se o novo estado já foi visitado
                         novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
                         if novo_estado_tuple not in visitados:
+                            print("Origem, destino, novo_estado, caminho: ", origem, destino, novo_estado, caminho)
                             pilha.append((novo_estado, caminho + [(origem, destino)]))  # Adiciona o sucessor à pilha
 
     return None  # Retorna None se não encontrar solução
