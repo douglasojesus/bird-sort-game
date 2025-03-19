@@ -12,7 +12,7 @@ class Algoritmo:
         self.tempo_final = 0
         self.tempo_algoritmo = 0
         self.memoria = 0
-        self.estados_gerados = ''
+        self.estados_gerados = 0
         self.solucao = ''
         self.caminho = ''
 
@@ -74,19 +74,23 @@ class Algoritmo:
 
         return None  # Retorna None se não encontrar solução
 
-    def resolver_com_dfs(self, tabuleiro):
+    def resolver_com_dfs(self, tabuleiro, profundidade_maxima=None):
         self.inicia()
         pilha = deque()  # Pilha para armazenar os estados a serem explorados
-        pilha.append((tabuleiro, []))  # Adiciona o estado inicial e o caminho vazio
+        pilha.append((tabuleiro, [], 0))  # Adiciona o estado inicial, o caminho vazio e a profundidade atual
         visitados = set()  # Conjunto para armazenar estados já visitados
 
         while pilha:
-            estado_atual, caminho = pilha.pop()  # Remove o último estado da pilha (LIFO)
+            estado_atual, caminho, profundidade = pilha.pop()  # Remove o último estado da pilha (LIFO)
 
             if verifica_se_ganhou(estado_atual):  # Verifica se é o estado objetivo
                 self.caminho = caminho
                 self.finaliza()
                 return caminho  # Retorna o caminho para a solução
+
+            # Se a profundidade máxima for definida e atingida, ignora este nó
+            if profundidade_maxima is not None and profundidade >= profundidade_maxima:
+                continue
 
             # Marca o estado como visitado
             estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in estado_atual.items())
@@ -95,7 +99,6 @@ class Algoritmo:
             # Gera todos os movimentos possíveis
             for origem in estado_atual:
                 for destino in estado_atual:
-                    # Para cada galho verifica se pode migrar para outro galho de destino, não sendo o mesmo galho e nem um galho quebrado.
                     if origem != destino and estado_atual[origem] and estado_atual[destino] != 'X':
                         # Cria uma cópia do estado atual, tratando galhos quebrados ('X')
                         novo_estado = {}
@@ -110,34 +113,40 @@ class Algoritmo:
                             # Verifica se o novo estado já foi visitado
                             novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
                             if novo_estado_tuple not in visitados:
-                                pilha.append((novo_estado, caminho + [(origem, destino)]))  # Adiciona o sucessor à pilha
+                                pilha.append((novo_estado, caminho + [(origem, destino)], profundidade + 1))  # Adiciona o sucessor à pilha
 
         return None  # Retorna None se não encontrar solução
 
-    def resolver_com_interatividade(tabuleiro):
+    def resolver_com_interatividade(self, tabuleiro):
+        self.inicia()
+        profundidade_maxima = 0  # Começa com profundidade 0 e aumenta iterativamente
+
+        while True:
+            resultado = self.resolver_com_dfs(tabuleiro, profundidade_maxima)
+            if resultado is not None:  # Se uma solução for encontrada
+                self.caminho = resultado
+                self.finaliza()
+                return resultado
+            profundidade_maxima += 1  # Aumenta a profundidade máxima
+
+    def resolver_com_custo_uniforme(self, tabuleiro):
         pass
 
-    def resolver_com_custo_uniforme(tabuleiro):
+    def resolver_com_busca_gulosa(self, tabuleiro):
         pass
 
-    def resolver_com_busca_gulosa(tabuleiro):
+    def resolver_com_a_estrela(self, tabuleiro):
         pass
 
-    def resolver_com_a_estrela(tabuleiro):
-        pass
-
-    def resolver_com_a_estrela_ponderado(tabuleiro):
+    def resolver_com_a_estrela_ponderado(self, tabuleiro):
         pass
 
     def exibe(self):
         if self.caminho:
             print(f"Solução encontrada em {len(self.caminho)} movimentos!")
             print(f"Solução encontrada em {self.tempo_algoritmo:.4} segundos.")
-            print("Sequência de movimentos:")
-            for movimento in self.caminho:
-                print(f"Mover de {movimento[0]} para {movimento[1]}")
+            #print("Sequência de movimentos:")
+            #for movimento in self.caminho:
+            #    print(f"Mover de {movimento[0]} para {movimento[1]}")
         else:
             print("Não foi possível encontrar uma solução.")
-        
-
-

@@ -8,8 +8,13 @@ import src.algorithm as algorithm
 # sobre a apresentação, vai depender da escolha do grupo
 
 def main():
-    galhos = int(input('Número de galhos: '))
-    escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ")
+    galhos = int(input('Número de galhos (maior que 1): '))
+    while galhos <= 1:
+        galhos = int(input('Número de galhos (maior que 1): '))
+
+    escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ").strip().upper()
+    while escolha != 'M' and escolha != 'A':
+        escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ").strip().upper()    
 
     if escolha == 'M':
         tabuleiro = define_tabuleiro_manualmente(galhos)
@@ -21,11 +26,13 @@ def main():
 
     exibe_tabuleiro(tabuleiro)
 
-    galhos_completos = verifica_se_pilha_esta_completa(tabuleiro)
-
     possiveis_escolhas_origem_destino = {}
     for i in range(galhos+2):
         possiveis_escolhas_origem_destino[i+1] = 'Galho '+str(i+1)
+
+    if verifica_se_tabuleiro_esta_completo(tabuleiro):
+        print("Tabuleiro já está solucionado! Parabéns, não precisou fazer nada.")
+        return
 
     modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
     if modo == 'S':
@@ -38,6 +45,11 @@ def main():
         dfs = algorithm.Algoritmo()
         dfs.resolver_com_dfs(tabuleiro)
         dfs.exibe()
+
+        print("\nResolvendo o jogo com DFS Iterarivo...")
+        dfsi = algorithm.Algoritmo()
+        dfsi.resolver_com_interatividade(tabuleiro)
+        dfsi.exibe()
 
     else:
         while True:

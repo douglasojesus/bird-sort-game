@@ -48,10 +48,6 @@ def define_tabuleiro_manualmente(qntd_galhos):
     print("\nTabuleiro criado com sucesso:")
     return tabuleiro
 
-
-
-
-
 def define_tabuleiro(qntd_galhos, tam_pilha):
     # define tabuleiro inicial, com as pilhas dos pássaros e os galhos
     tabuleiro = {}
@@ -129,6 +125,14 @@ def verifica_se_sao_todos_iguais(galho):
     if qntd == 4:
         return True
     return False
+
+def verifica_se_tabuleiro_esta_completo(tabuleiro):
+    for galho in tabuleiro:
+        if tabuleiro[galho] != []:
+            saoIguais = verifica_se_sao_todos_iguais(tabuleiro[galho])
+            if not saoIguais:
+                return False
+    return True
 
 def verifica_se_pilha_esta_completa(tabuleiro):
     galhos_completos = []
