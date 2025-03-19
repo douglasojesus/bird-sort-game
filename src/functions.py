@@ -5,6 +5,53 @@ def exibe_tabuleiro(tabuleiro):
     for galho in tabuleiro:
         print(galho, '-', tabuleiro[galho])
 
+def define_tabuleiro_manualmente(qntd_galhos):
+    print("""Instruções: 
+- Adicione até 4 pássaros por galho;
+- Insira, exatamente, 4 pássaros do mesmo tipo no conjunto de galhos;""")
+    
+    tabuleiro = {}
+    is_valid = {}  # Dicionário para contar a quantidade de cada tipo de pássaro
+    tipos_passaros = set()  # Conjunto para armazenar os tipos de pássaros inseridos
+
+    for i in range(qntd_galhos):
+        while True:
+            galho = input(f"Adicione, entre vírgulas, os pássaros no Galho {i+1} (ex: 1, 1, 2, 1): ")
+            try:
+                galho = [int(passaro) for passaro in galho.split(",")]
+                
+                if len(galho) > 4:
+                    print("Erro: Um galho não pode ter mais de 4 pássaros. Tente novamente.")
+                    continue
+                
+                for passaro in galho:
+                    if passaro in is_valid:
+                        is_valid[passaro] += 1
+                    else:
+                        is_valid[passaro] = 1
+                    tipos_passaros.add(passaro)
+                
+                tabuleiro[f"Galho {i+1}"] = galho
+                break
+            except ValueError:
+                print("Erro: Insira apenas números separados por vírgulas. Tente novamente.")
+    
+    # Verifica se há exatamente 4 pássaros de cada tipo
+    for passaro in tipos_passaros:
+        if is_valid.get(passaro, 0) != 4:
+            print(f"Erro: O tipo de pássaro {passaro} não tem exatamente 4 pássaros. Reinicie o processo.")
+            return None
+
+    tabuleiro[f"Galho {qntd_galhos + 1}"] = []
+    tabuleiro[f"Galho {qntd_galhos + 2}"] = []
+
+    print("\nTabuleiro criado com sucesso:")
+    return tabuleiro
+
+
+
+
+
 def define_tabuleiro(qntd_galhos, tam_pilha):
     # define tabuleiro inicial, com as pilhas dos pássaros e os galhos
     tabuleiro = {}

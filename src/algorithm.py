@@ -133,9 +133,9 @@ class Algoritmo:
         if self.caminho:
             print(f"Solução encontrada em {len(self.caminho)} movimentos!")
             print(f"Solução encontrada em {self.tempo_algoritmo:.4} segundos.")
-            #print("Sequência de movimentos:")
-            #for movimento in self.caminho:
-            #    print(f"Mover de {movimento[0]} para {movimento[1]}")
+            print("Sequência de movimentos:")
+            for movimento in self.caminho:
+                print(f"Mover de {movimento[0]} para {movimento[1]}")
         else:
             print("Não foi possível encontrar uma solução.")
         

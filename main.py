@@ -9,8 +9,15 @@ import src.algorithm as algorithm
 
 def main():
     galhos = int(input('Número de galhos: '))
-    tabuleiro = define_tabuleiro(galhos, 0)
-    tabuleiro = popula_tabuleiro(tabuleiro)
+    escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ")
+
+    if escolha == 'M':
+        tabuleiro = define_tabuleiro_manualmente(galhos)
+        while tabuleiro == None:
+            tabuleiro = define_tabuleiro_manualmente(galhos)
+    else:
+        tabuleiro = define_tabuleiro(galhos, 0)
+        tabuleiro = popula_tabuleiro(tabuleiro)
 
     exibe_tabuleiro(tabuleiro)
 
@@ -22,10 +29,10 @@ def main():
 
     modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
     if modo == 'S':
-        #print("\nResolvendo o jogo com BFS...")
-        #bfs = algorithm.Algoritmo()
-        #bfs.resolver_com_bfs(tabuleiro)
-        #bfs.exibe()
+        print("\nResolvendo o jogo com BFS...")
+        bfs = algorithm.Algoritmo()
+        bfs.resolver_com_bfs(tabuleiro)
+        bfs.exibe()
         
         print("\nResolvendo o jogo com DFS...")
         dfs = algorithm.Algoritmo()
