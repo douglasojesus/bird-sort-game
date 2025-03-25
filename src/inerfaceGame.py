@@ -36,32 +36,27 @@ branch_positions = branch_positions_left + branch_positions_right
 
 # Gerar pássaros em galhos
 birds = {i: [] for i in range(num_branches * 2)}
+print(birds)
 print(birds_per_branch)
 count = 0
 for i in range(num_branches * 2):
-    print("-")
+    row = i % num_branches  # Determina a linha (posição vertical) do galho
     for j in range(birds_per_branch):
-        print(j)
-        if i < num_branches:
-            # Posição X do pássaro alinhada com o galho
+        if i < num_branches:  # Galhos à esquerda
             x = branch_positions_left[i] + (j * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
-            y = galho_y + (count * 100) - bird_radius  # Posição vertical ajustada para ficar em cima do galho
-        else:
-            # Posição X do pássaro alinhada com o galho
+            y = galho_y + (row * 100) - bird_radius  # Calcula a posição vertical
+            print("Esquerdaaa")
+        else:  # Galhos à direita
             x = branch_positions_right[i - num_branches] + (j * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
-            y = galho_y + (count * 100) - bird_radius  # Posição vertical ajustada para ficar em cima do galho
-            
-        
-        if i % num_branches == 0:
-            count += 1
+            y = galho_y + (row * 100) - bird_radius  # Calcula a posição vertical
+            print("Direitaaa")
 
         color = random.choice(COLORS)
         birds[i].append({"pos": (x, y), "color": color})
 
-        if count == num_branches:
-            count = 0
-
         
+print(birds)
+print(birds_per_branch)
 
 # Inicializa a variável de controle do loop
 running = True
