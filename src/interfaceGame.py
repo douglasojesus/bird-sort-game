@@ -65,6 +65,7 @@ def startGame(galhos, tabuleiro):
     running = True
     selected_bird = None  # Nenhum pássaro selecionado inicialmente
     from_branch = None  # Galho de origem do pássaro
+
     # Loop principal
     while running:
         # Desenho
@@ -73,27 +74,23 @@ def startGame(galhos, tabuleiro):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
 
                 # Se não há pássaro selecionado, tentamos selecionar um
                 if selected_bird is None:
                     for i, branch_birds in birds.items():
-                        for bird in branch_birds:
+                        if branch_birds:  # Só considera galhos com pássaros
+                            if i % 2 == 0:  # Galho da esquerda
+                                bird = branch_birds[-1]  # Pássaro mais à direita
+                            else:  # Galho da direita
+                                bird = branch_birds[0]  # Pássaro mais à esquerda
+
                             if is_click_on_bird(mouse_pos, bird):
-                                # Se o galho é da esquerda, seleciona o pássaro da ponta
-                                if i % 2 == 0:  # Galho da esquerda
-                                    if bird == branch_birds[-1]:  # Pássaro na ponta
-                                        selected_bird = bird
-                                        from_branch = i
-                                        print(f"Pássaro selecionado no galho {i}")
-                                # Se o galho é da direita, seleciona o primeiro pássaro
-                                elif i % 2 != 0:  # Galho da direita
-                                    if bird == branch_birds[0]:  # Pássaro mais à esquerda
-                                        selected_bird = bird
-                                        from_branch = i
-                                        print(f"Pássaro selecionado no galho {i}")
+                                selected_bird = bird
+                                from_branch = i
+                                print(f"Pássaro selecionado no galho {i}")
                                 break
                 else:
                     # Se há um pássaro selecionado, tentamos mover para o galho clicado
@@ -112,20 +109,18 @@ def startGame(galhos, tabuleiro):
                             # Adiciona o pássaro ao novo galho, removendo do galho original
                             if i != from_branch and len(birds[i]) < birds_per_branch:
                                 # Recalcular a posição do pássaro no novo galho
-                                if i % 2 == 0:  # Galho da esquerda, coloca no início
+                                if i % 2 == 0:  # Galho à esquerda
                                     new_x = branch_x + (len(birds[i]) * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
-                                else:  # Galho da direita, coloca no final (lado direito)
-                                    new_x = branch_x + (branch_width - (len(birds[i]) + 1) * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
+                                    new_y = branch_y - bird_radius
+                                    selected_bird["pos"] = (new_x, new_y)
+                                    birds[i].append(selected_bird)  # Adiciona na posição mais à esquerda
+                                else:  # Galho à direita
+                                    new_x = branch_x + ((birds_per_branch - len(birds[i]) - 1) * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
+                                    new_y = branch_y - bird_radius
+                                    selected_bird["pos"] = (new_x, new_y)
+                                    birds[i].insert(0, selected_bird)  # Adiciona na posição mais à direita
 
-                                new_y = branch_y - bird_radius
-                                # Atualiza a posição do pássaro
-                                selected_bird["pos"] = (new_x, new_y)
-                                birds[i].append(selected_bird)
                                 birds[from_branch].remove(selected_bird)
-                                # Atualiza o tabuleiro
-                                tabuleiro[f"Galho {from_branch+1}"].remove(bird_num)
-                                tabuleiro[f"Galho {i+1}"].append(bird_num)
-
                                 selected_bird = None  # Limpa a seleção
                                 from_branch = None
                                 print(f"Pássaro movido para o galho {i}")
