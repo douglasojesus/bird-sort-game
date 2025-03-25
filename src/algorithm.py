@@ -133,44 +133,59 @@ class Algoritmo:
 
     def resolver_com_custo_uniforme(self, tabuleiro):
         self.inicia()
-        fila_prioridade = PriorityQueue()  # Fila de prioridade para armazenar os estados a serem explorados
-        contador = itertools.count()  # Contador único para desempatar
-        fila_prioridade.put((0, next(contador), tabuleiro, []))  # Adiciona o estado inicial, o caminho vazio e o custo acumulado (0)
-        visitados = set()  # Conjunto para armazenar estados já visitados
+        fila_prioridade = PriorityQueue()
+        contador = itertools.count()
+        fila_prioridade.put((0, next(contador), tabuleiro, []))
+        visitados = set()
 
         while not fila_prioridade.empty():
-            custo_acumulado, _, estado_atual, caminho = fila_prioridade.get()  # Remove o estado com menor custo acumulado
+            custo_acumulado, _, estado_atual, caminho = fila_prioridade.get()
 
-            if verifica_se_ganhou(estado_atual):  # Verifica se é o estado objetivo
+            if verifica_se_ganhou(estado_atual):
                 self.caminho = caminho
                 self.finaliza()
-                return caminho  # Retorna o caminho para a solução
+                return caminho
 
-            # Marca o estado como visitado
             estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in estado_atual.items())
             visitados.add(estado_tuple)
 
-            # Gera todos os movimentos possíveis
             for origem in estado_atual:
+                if not estado_atual[origem] or estado_atual[origem] == 'X':
+                    continue
+
+                passaro = estado_atual[origem][-1]
+
                 for destino in estado_atual:
-                    if origem != destino and estado_atual[origem] and estado_atual[destino] != 'X':
-                        # Cria uma cópia do estado atual, tratando galhos quebrados ('X')
-                        novo_estado = {}
-                        for k, v in estado_atual.items():
-                            if v == 'X':
-                                novo_estado[k] = 'X'
+                    if origem == destino or estado_atual[destino] == 'X':
+                        continue
+
+                    novo_estado = {k: v.copy() if v != 'X' else 'X' for k, v in estado_atual.items()}
+                    
+                    if verifica_se_pode_voar(novo_estado, origem, destino):
+                        # Hierarquia de prioridades
+                        if estado_atual[destino] and estado_atual[destino][-1] == passaro:
+                            qtd_iguais = estado_atual[destino].count(passaro)
+                            if qtd_iguais >= 2:
+                                custo_movimento = 0.001  # Prioridade absoluta para completar grupos
                             else:
-                                novo_estado[k] = v.copy()
+                                custo_movimento = 0.1    # Prioridade alta para iniciar grupos
+                        elif not estado_atual[destino]:
+                            custo_movimento = 0.5        # Prioridade média para galhos vazios
+                        else:
+                            custo_movimento = 10.0       # Penalidade alta para movimentos não estratégicos
 
-                        if verifica_se_pode_voar(novo_estado, origem, destino):
-                            realiza_voo_passaro(novo_estado, origem, destino)
-                            # Verifica se o novo estado já foi visitado
-                            novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
-                            if novo_estado_tuple not in visitados:
-                                # Adiciona o novo estado à fila de prioridade com o custo acumulado atualizado
-                                fila_prioridade.put((custo_acumulado + 1, next(contador), novo_estado, caminho + [(origem, destino)]))
+                        realiza_voo_passaro(novo_estado, origem, destino)
+                        novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
+                        
+                        if novo_estado_tuple not in visitados:
+                            fila_prioridade.put((
+                                custo_acumulado + custo_movimento,
+                                next(contador),
+                                novo_estado,
+                                caminho + [(origem, destino)]
+                            ))
 
-        return None  # Retorna None se não encontrar solução
+        return None
 
     def resolver_com_busca_gulosa(self, tabuleiro):
         pass
@@ -185,8 +200,8 @@ class Algoritmo:
         if self.caminho:
             print(f"Solução encontrada em {len(self.caminho)} movimentos!")
             print(f"Solução encontrada em {self.tempo_algoritmo:.4} segundos.")
-            #print("Sequência de movimentos:")
-            #for movimento in self.caminho:
-            #    print(f"Mover de {movimento[0]} para {movimento[1]}")
+            print("Sequência de movimentos:")
+            for movimento in self.caminho:
+                print(f"Mover de {movimento[0]} para {movimento[1]}")
         else:
             print("Não foi possível encontrar uma solução.")
