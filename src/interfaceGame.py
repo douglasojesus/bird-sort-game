@@ -122,6 +122,10 @@ def startGame(galhos, tabuleiro):
                                 selected_bird["pos"] = (new_x, new_y)
                                 birds[i].append(selected_bird)
                                 birds[from_branch].remove(selected_bird)
+                                # Atualiza o tabuleiro
+                                tabuleiro[f"Galho {from_branch+1}"].remove(bird_num)
+                                tabuleiro[f"Galho {i+1}"].append(bird_num)
+
                                 selected_bird = None  # Limpa a seleção
                                 from_branch = None
                                 print(f"Pássaro movido para o galho {i}")
