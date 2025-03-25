@@ -22,7 +22,7 @@ RED = (255, 0, 0)
 COLORS = [RED, BLUE, (0, 255, 0), (255, 255, 0)]  # Paleta de cores dos pássaros
 
 # Variáveis configuráveis
-num_branches = 4  # Número de galhos por lado
+num_branches = 3  # Número de galhos por lado
 birds_per_branch = 4  # Número de pássaros por galho
 branch_width = 150
 branch_height = 15
@@ -39,7 +39,8 @@ birds = {i: [] for i in range(num_branches * 2)}
 print(birds)
 print(birds_per_branch)
 count = 0
-for i in range(num_branches * 2):
+
+for i in range((num_branches * 2) - 2):
     row = i % num_branches  # Determina a linha (posição vertical) do galho
     for j in range(birds_per_branch):
         if i < num_branches:  # Galhos à esquerda
@@ -54,9 +55,7 @@ for i in range(num_branches * 2):
         color = random.choice(COLORS)
         birds[i].append({"pos": (x, y), "color": color})
 
-        
-print(birds)
-print(birds_per_branch)
+
 
 # Inicializa a variável de controle do loop
 running = True
