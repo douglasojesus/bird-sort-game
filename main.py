@@ -41,15 +41,20 @@ def main():
         bfs.resolver_com_bfs(tabuleiro)
         bfs.exibe()
         
-        print("\nResolvendo o jogo com DFS...")
-        dfs = algorithm.Algoritmo()
-        dfs.resolver_com_dfs(tabuleiro)
-        dfs.exibe()
+        #print("\nResolvendo o jogo com DFS...")
+        #dfs = algorithm.Algoritmo()
+        #dfs.resolver_com_dfs(tabuleiro)
+        #dfs.exibe()
 
-        print("\nResolvendo o jogo com DFS Iterarivo...")
-        dfsi = algorithm.Algoritmo()
-        dfsi.resolver_com_interatividade(tabuleiro)
-        dfsi.exibe()
+        #print("\nResolvendo o jogo com DFS Iterarivo...")
+        #dfsi = algorithm.Algoritmo()
+        #dfsi.resolver_com_interatividade(tabuleiro)
+        #dfsi.exibe()
+
+        print("\nResolvendo o jogo com Custo Uniforme...")
+        ucs = algorithm.Algoritmo()
+        ucs.resolver_com_custo_uniforme(tabuleiro)
+        ucs.exibe()
 
     else:
         while True:
