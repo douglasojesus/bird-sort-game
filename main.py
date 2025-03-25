@@ -1,5 +1,6 @@
 from src.functions import *
 import src.algorithm as algorithm
+from src import interfaceGame
 
 # criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
 # ele insere os galhos e como eles vão estar ajustados, ao invés de aleatoriamente
@@ -8,6 +9,7 @@ import src.algorithm as algorithm
 # sobre a apresentação, vai depender da escolha do grupo
 
 def main():
+    
     galhos = int(input('Número de galhos (maior que 1): '))
     while galhos <= 1:
         galhos = int(input('Número de galhos (maior que 1): '))
@@ -23,7 +25,7 @@ def main():
     else:
         tabuleiro = define_tabuleiro(galhos, 0)
         tabuleiro = popula_tabuleiro(tabuleiro)
-
+    print(tabuleiro)
     exibe_tabuleiro(tabuleiro)
 
     possiveis_escolhas_origem_destino = {}
@@ -55,8 +57,9 @@ def main():
         ucs = algorithm.Algoritmo()
         ucs.resolver_com_custo_uniforme(tabuleiro)
         ucs.exibe()
-
+    
     else:
+        interfaceGame.startGame(galhos, tabuleiro)
         while True:
             
             escolha_origem = int(input("Escolha o galho de origem: "))        
@@ -67,7 +70,7 @@ def main():
                 escolha_origem = int(input("Escolha outro galho de origem: "))
                 escolha_destino = int(input("Escolha outro galho de destino: "))
 
-            if verifica_se_ganhou(tabuleiro):
+            if verifica_se_ganhou(galhos, tabuleiro):
                 print("Parabéns!")
                 break
             exibe_tabuleiro(tabuleiro)
