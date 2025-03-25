@@ -4,7 +4,7 @@
 
 **Jogo de inspiração escolhido: Bird Sort.**
 
-**Algoritmos a serem implementados: sem conhecimento (busca em largura, busca em profundidade, aprofundamento iterativo, custo uniforme) e com heurística (busca gulosa, algoritmo A*, A* Ponderado).**
+**Algoritmos a serem implementados: sem conhecimento (busca em largura, busca em profundidade, aprofundamento iterativo, custo uniforme) e com heurística (busca gulosa, algoritmo A*, A* Ponderado).
 
 # Explicação dos Algoritmos de Busca para o Bird Sort
 
