@@ -76,33 +76,43 @@ def main():
         registrar_execucao('bfs', tempo, qntd_caminhos)
 
         exibir_resultados_comparativos()
-
-        
-        
-
-        
-
-        
-
         
     
     else:
-        interfaceGame.startGame(galhos, tabuleiro)
-        while True:
-            
-            escolha_origem = int(input("Escolha o galho de origem: "))        
-            escolha_destino = int(input("Escolha o galho de destino: "))
+        tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()
+        while tipo_de_jogo_escolha != 'C' and tipo_de_jogo_escolha != 'I':
+            tipo_de_jogo_escolha = input("Escolha 'C' (console) ou 'I' (interface): ").strip().upper()
+        
+        if tipo_de_jogo_escolha == 'I':
+            interfaceGame.startGame(galhos, tabuleiro)
+        else:
+            while True:
 
-            while not (realiza_voo_passaro(tabuleiro, possiveis_escolhas_origem_destino[escolha_origem], possiveis_escolhas_origem_destino[escolha_destino])):
-                print(f"Pássaro não pode sair da origem {possiveis_escolhas_origem_destino[escolha_origem]} e ir para o destino {possiveis_escolhas_origem_destino[escolha_destino]}.")
-                escolha_origem = int(input("Escolha outro galho de origem: "))
-                escolha_destino = int(input("Escolha outro galho de destino: "))
+                # Para conseguir uma dica, vamos pegar o estado atual e utilizar algum algoritmo, como o A*, para dizer o próximo passo (primeiro movimento do caminho resultado).
+                
+                dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
+                if dica == 'D' or dica == 'd':
+                    print("\nResolvendo o jogo com A*...")
+                    a_star = algorithm.Algoritmo()
+                    a_star.resolver_com_a_estrela(tabuleiro)
+                    caminho = a_star.getCaminho()
+                    if caminho:
+                        print("Movimento:")
+                        print(f"Mover de {caminho[0][0]} para {caminho[0][1]}")
+                
+                escolha_origem = int(input("Escolha o galho de origem: "))        
+                escolha_destino = int(input("Escolha o galho de destino: "))
 
-            if verifica_se_ganhou(galhos, tabuleiro):
-                print("Parabéns!")
-                break
-            exibe_tabuleiro(tabuleiro)
+                while not (realiza_voo_passaro(tabuleiro, possiveis_escolhas_origem_destino[escolha_origem], possiveis_escolhas_origem_destino[escolha_destino])):
+                    print(f"Pássaro não pode sair da origem {possiveis_escolhas_origem_destino[escolha_origem]} e ir para o destino {possiveis_escolhas_origem_destino[escolha_destino]}.")
+                    escolha_origem = int(input("Escolha outro galho de origem: "))
+                    escolha_destino = int(input("Escolha outro galho de destino: "))
 
+                if verifica_se_ganhou(tabuleiro):
+                    print("Parabéns!")
+                    break
+
+                exibe_tabuleiro(tabuleiro)
 
 if __name__ == '__main__':
     main()

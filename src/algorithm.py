@@ -37,6 +37,9 @@ class Algoritmo:
     def getMemoria(self):
         pass
 
+    def getCaminho(self):
+        return self.caminho
+
     def resolver_com_bfs(self, tabuleiro):
         self.inicia()
         fila = deque()  # Fila para armazenar os estados a serem explorados
