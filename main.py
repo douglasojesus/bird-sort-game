@@ -3,12 +3,6 @@ from src.algorithm import *
 from src.interface import BirdSortGame
 from results.results import *
 
-# criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
-# ele insere os galhos e como eles vão estar ajustados, ao invés de aleatoriamente
-# o jogo gráfico pode ser só para o humano; a parte do uso do algoritmos pode estar para o terminal
-# a heurística pode ser pensada como uma "vantagem" em um jogo real: o problema é codificar isso
-# sobre a apresentação, vai depender da escolha do grupo
-
 def main():
     
     galhos = int(input('Número de galhos (maior que 1): '))

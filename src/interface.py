@@ -227,19 +227,11 @@ class BirdSortGame:
                     if self.selected_bird is None:
                         for branch_idx in self.birds:
                             selectable_bird = self.get_selectable_bird(branch_idx)
-                            print(selectable_bird, branch_idx)
                             if selectable_bird:
-                                
                                 bx, by = selectable_bird["pos"]
-                                print(self.birds[branch_idx])
-                                
-                                print(mouse_pos[0], mouse_pos[1])
-
-                                print(bx, by)
                                 
                                 if (bx - self.bird_radius <= mouse_pos[0] <= bx + self.bird_radius and
                                     by - self.bird_radius <= mouse_pos[1] <= by + self.bird_radius):
-                                    print("selecionado", selectable_bird)
                                     self.selected_bird = selectable_bird
                                     self.from_branch = list(self.tabuleiro.keys())[branch_idx]
                                     break
@@ -248,14 +240,13 @@ class BirdSortGame:
                         for branch_idx in range(len(self.tabuleiro)):
                             if self.is_click_on_branch(mouse_pos, branch_idx):
                                 destino = list(self.tabuleiro.keys())[branch_idx]
-                                print("tenta mover", destino, self.from_branch)
                                 # Verifica se o movimento é válido
                                 if self.from_branch != destino:  # Não pode mover para o mesmo galho
                                     if realiza_voo_passaro(self.tabuleiro, self.from_branch, destino):
                                         self.show_hint = False
                                         self.update_visualization()
                                 break
-                        print("no else")
+                            
                         self.selected_bird = None
                         self.from_branch = None
             
