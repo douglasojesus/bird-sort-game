@@ -1,5 +1,5 @@
-
 import random
+from src.algorithm import Algoritmo
 
 def exibe_tabuleiro(tabuleiro):
     for galho in tabuleiro:
@@ -146,3 +146,9 @@ def quebra_galho(tabuleiro, galho):
     tabuleiro[galho] = 'X'
     return tabuleiro
 
+def consegue_dica(tabuleiro):
+    a_star = Algoritmo()
+    a_star.resolver_com_a_estrela(tabuleiro)
+    caminho = a_star.getCaminho()
+    if caminho:
+        return f"Mover de {caminho[0][0]} para {caminho[0][1]}"

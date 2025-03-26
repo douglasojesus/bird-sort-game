@@ -1,7 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
-from functions import *
+from src.functions import *
 
 # Configurações de cores
 WHITE = (255, 255, 255)
@@ -26,14 +26,12 @@ bird_colors = {
 }
 
 class BirdSortGame:
-    def __init__(self, qntd_galhos=4):
+    def __init__(self, tabuleiro):
         pygame.init()
         self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption("Bird Sort Puzzle")
         
-        # Inicializa o tabuleiro usando as funções do arquivo functions.py
-        self.tabuleiro = define_tabuleiro(qntd_galhos)
-        self.tabuleiro = popula_tabuleiro(self.tabuleiro)
+        self.tabuleiro = tabuleiro
         
         # Configurações visuais
         self.branch_width = 100
@@ -150,19 +148,8 @@ class BirdSortGame:
     
     def get_hint(self):
         """Procura um movimento válido para sugerir ao jogador"""
-        for origem in self.tabuleiro:
-            if self.tabuleiro[origem] == 'X' or not self.tabuleiro[origem]:
-                continue
-            
-            for destino in self.tabuleiro:
-                if origem == destino or self.tabuleiro[destino] == 'X':
-                    continue
-                
-                if verifica_se_pode_voar(self.tabuleiro, origem, destino):
-                    self.hint_move = (origem, destino)
-                    return
-        
-        self.hint_move = None
+        dica = consegue_dica(self.tabuleiro)
+        self.hint_move = dica
     
     def run_console_mode(self):
         """Alterna para o modo de console"""

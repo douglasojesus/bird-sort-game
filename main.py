@@ -1,6 +1,6 @@
 from src.functions import *
 import src.algorithm as algorithm
-from src import interfaceGame
+from src.interfaceGame import BirdSortGame
 from results.results import *
 
 # criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
@@ -81,24 +81,21 @@ def main():
         tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()
         while tipo_de_jogo_escolha != 'C' and tipo_de_jogo_escolha != 'I':
             tipo_de_jogo_escolha = input("Escolha 'C' (console) ou 'I' (interface): ").strip().upper()
-        
+
         if tipo_de_jogo_escolha == 'I':
-            interfaceGame.startGame(galhos, tabuleiro)
+            game = BirdSortGame(tabuleiro)
+            game.run()
         else:
             while True:
-
                 # Para conseguir uma dica, vamos pegar o estado atual e utilizar algum algoritmo, como o A*, para dizer o próximo passo (primeiro movimento do caminho resultado).
                 
-                dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
-                if dica == 'D' or dica == 'd':
+                escolha_dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
+                if escolha_dica == 'D' or escolha_dica == 'd':
                     print("\nRProcurando próximo movimento...")
-                    a_star = algorithm.Algoritmo()
-                    a_star.resolver_com_a_estrela(tabuleiro)
-                    caminho = a_star.getCaminho()
-                    if caminho:
-                        print("Movimento:")
-                        print(f"Mover de {caminho[0][0]} para {caminho[0][1]}")
-                
+                    dica = consegue_dica(tabuleiro)
+                    print("Movimento:")
+                    print(dica)
+                    
                 escolha_origem = int(input("Escolha o galho de origem: "))        
                 escolha_destino = int(input("Escolha o galho de destino: "))
 
