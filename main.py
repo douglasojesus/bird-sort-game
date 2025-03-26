@@ -92,7 +92,7 @@ def main():
                 
                 dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
                 if dica == 'D' or dica == 'd':
-                    print("\nResolvendo o jogo com A*...")
+                    print("\nRProcurando próximo movimento...")
                     a_star = algorithm.Algoritmo()
                     a_star.resolver_com_a_estrela(tabuleiro)
                     caminho = a_star.getCaminho()
