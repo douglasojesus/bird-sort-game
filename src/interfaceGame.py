@@ -1,149 +1,288 @@
-import random
 import pygame
+import sys
+from pygame.locals import *
+from functions import *
 
-# Mapeamento dos tipos de pássaros (números) para cores
+# Configurações de cores
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BROWN = (139, 69, 19)
+RED = (255, 0, 0)
+GREEN = (0, 128, 0)
+BLUE = (0, 0, 255)
+BUTTON_COLOR = (0, 128, 255)
+CONSOLE_BUTTON_COLOR = (128, 128, 128)
+
+# Cores dos pássaros
 bird_colors = {
-    1: (255, 0, 0),        # Cor para pássaro 1 (vermelho)
-    2: (0, 255, 0),        # Cor para pássaro 2 (verde)
-    3: (0, 0, 255),        # Cor para pássaro 3 (azul)
-    4: (255, 165, 0),      # Cor para pássaro 4 (laranja)
-    5: (128, 0, 128),      # Cor para pássaro 5 (roxo)
-    6: (255, 192, 203),    # Cor para pássaro 6 (rosa)
-    7: (0, 255, 255),      # Cor para pássaro 7 (ciano)
-    8: (255, 99, 71),      # Cor para pássaro 8 (tomate)
+    1: (255, 0, 0),    # Vermelho
+    2: (0, 255, 0),    # Verde
+    3: (0, 0, 255),    # Azul
+    4: (255, 165, 0),  # Laranja
+    5: (128, 0, 128),  # Roxo
+    6: (255, 192, 203),# Rosa
+    7: (0, 255, 255),  # Ciano
+    8: (255, 99, 71),  # Tomate
 }
 
-def startGame(galhos, tabuleiro):
-    # Inicializa o Pygame
-    pygame.init()
+class BirdSortGame:
+    def __init__(self, qntd_galhos=4):
+        pygame.init()
+        self.screen = pygame.display.set_mode((800, 600))
+        pygame.display.set_caption("Bird Sort Puzzle")
+        
+        # Inicializa o tabuleiro usando as funções do arquivo functions.py
+        self.tabuleiro = define_tabuleiro(qntd_galhos)
+        self.tabuleiro = popula_tabuleiro(self.tabuleiro)
+        
+        # Configurações visuais
+        self.branch_width = 100
+        self.branch_height = 15
+        self.bird_radius = 15
+        self.branch_spacing = 80
+        self.branch_x_left = 150
+        self.branch_x_right = 550
+        self.galho_y = 100
+        
+        # Estado do jogo
+        self.selected_bird = None
+        self.from_branch = None
+        self.show_hint = False
+        self.hint_move = None
+        
+        # Fontes
+        self.font = pygame.font.SysFont('Arial', 20)
+        self.big_font = pygame.font.SysFont('Arial', 30)
+        
+        # Botões
+        self.hint_button = pygame.Rect(350, 500, 100, 40)
+        self.console_button = pygame.Rect(350, 550, 100, 40)
+        
+        self.update_visualization()
+    
+    def update_visualization(self):
+        """Atualiza a representação visual baseada no estado do tabuleiro"""
+        self.birds = {}
+        
+        for idx, (galho_name, passaros) in enumerate(self.tabuleiro.items()):
+            self.birds[idx] = []
+            
+            if passaros == 'X':  # Galho quebrado
+                continue
+            
+            # Posicionamento do galho (esquerda/direita)
+            branch_x = self.branch_x_left if idx % 2 == 0 else self.branch_x_right
+            branch_y = self.galho_y + (idx // 2) * self.branch_spacing
+            
+            # Posiciona os pássaros no galho
+            for j, bird_type in enumerate(passaros):
+                if idx % 2 == 0:  # Galho esquerdo (empilha da esquerda para direita)
+                    x = branch_x + (j * (self.branch_width // 4)) + (self.branch_width // 8)
+                else:  # Galho direito (empilha da direita para esquerda)
+                    x = branch_x + ((3 - j) * (self.branch_width // 4)) + (self.branch_width // 8)
+                
+                y = branch_y - self.bird_radius
+                color = bird_colors.get(bird_type, BLACK)
+                self.birds[idx].append({"pos": (x, y), "color": color, "type": bird_type})
 
-    # Configurações da tela
-    screen = pygame.display.set_mode((400, 800))
-    pygame.display.set_caption("Bird Sort Example")
+    def get_selectable_bird(self, branch_idx):
+        """Retorna o pássaro que pode ser selecionado em um galho específico"""
+        if branch_idx not in self.birds or not self.birds[branch_idx]:
+            return None
+        
 
-    # Configurações dos galhos
-    total_branches = galhos  # Número total de galhos
-    total_branches_with_extra = total_branches + 2  # Total de galhos com os galhos extras
-    birds_per_branch = 4  # Número de pássaros por galho
-    branch_width = 150
-    branch_height = 15
-    bird_radius = 10
-    branch_spacing = 100  # Espaço vertical entre galhos
-    branch_x_left = 10  # Posição inicial dos galhos à esquerda
-    branch_x_right = 240  # Posição inicial dos galhos à direita
-    galho_y = 200  # Posição inicial vertical do primeiro galho
-
-    # Inicializando a estrutura de pássaros
-    birds = {i: [] for i in range(total_branches_with_extra)}  # Apenas para os galhos preenchidos
-
-    # Preenche os galhos de acordo com o tabuleiro
-    for idx, (branch_name, branch_birds) in enumerate(tabuleiro.items()):
-        if idx < total_branches:  # Verifica se o galho está dentro dos limites
-            # Determina se o galho está na esquerda ou direita
-            if idx % 2 == 0:  # Galhos na esquerda
-                branch_x = branch_x_left
-            else:  # Galhos na direita
-                branch_x = branch_x_right
-
-            # Determina a linha (posição vertical) do galho
-            row = idx // 2
-            branch_y = galho_y + (row * branch_spacing)
-
-            # Adiciona os pássaros ao galho com base no dicionário `tabuleiro`
-            for j, bird_num in enumerate(branch_birds):
-                x = branch_x + (j * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
-                y = branch_y - bird_radius  # Ajusta o Y para alinhar os pássaros sobre o galho
-                color = bird_colors.get(bird_num, (0, 0, 0))  # Cor baseada no número do pássaro, ou preto como fallback
-                birds[idx].append({"pos": (x, y), "color": color})
-
-    # Função para verificar se o clique está dentro do pássaro
-    def is_click_on_bird(mouse_pos, bird):
-        bx, by = bird["pos"]
-        return (bx - bird_radius <= mouse_pos[0] <= bx + bird_radius) and (by - bird_radius <= mouse_pos[1] <= by + bird_radius)
-
-    # Inicializa a variável de controle do loop
-    running = True
-    selected_bird = None  # Nenhum pássaro selecionado inicialmente
-    from_branch = None  # Galho de origem do pássaro
-
-    # Loop principal
-    while running:
-        # Desenho
-        screen.fill((255, 255, 255))  # Tela branca
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-
-                # Se não há pássaro selecionado, tentamos selecionar um
-                if selected_bird is None:
-                    for i, branch_birds in birds.items():
-                        if branch_birds:  # Só considera galhos com pássaros
-                            if i % 2 == 0:  # Galho da esquerda
-                                bird = branch_birds[-1]  # Pássaro mais à direita
-                            else:  # Galho da direita
-                                bird = branch_birds[0]  # Pássaro mais à esquerda
-
-                            if is_click_on_bird(mouse_pos, bird):
-                                selected_bird = bird
-                                from_branch = i
-                                print(f"Pássaro selecionado no galho {i}")
-                                break
+        return self.birds[branch_idx][-1]
+    
+    def draw(self):
+        """Desenha todos os elementos na tela"""
+        self.screen.fill(WHITE)
+        
+        # Desenha os galhos
+        for idx, (galho_name, passaros) in enumerate(self.tabuleiro.items()):
+            branch_x = self.branch_x_left if idx % 2 == 0 else self.branch_x_right
+            branch_y = self.galho_y + (idx // 2) * self.branch_spacing
+            
+            # Galho quebrado ou normal
+            if passaros == 'X':
+                pygame.draw.rect(self.screen, RED, (branch_x, branch_y, self.branch_width, self.branch_height), 2)
+                text = self.font.render("QUEBRADO", True, RED)
+            else:
+                pygame.draw.rect(self.screen, BROWN, (branch_x, branch_y, self.branch_width, self.branch_height))
+                pygame.draw.rect(self.screen, BLACK, (branch_x, branch_y, self.branch_width, self.branch_height), 2)
+                text = self.font.render(galho_name, True, BLACK)
+            
+            self.screen.blit(text, (branch_x, branch_y - 25))
+        
+        # Desenha os pássaros
+        for branch in self.birds.values():
+            for bird in branch:
+                pygame.draw.circle(self.screen, bird["color"], bird["pos"], self.bird_radius)
+                pygame.draw.circle(self.screen, BLACK, bird["pos"], self.bird_radius, 1)
+                text = self.font.render(str(bird["type"]), True, BLACK)
+                text_rect = text.get_rect(center=bird["pos"])
+                self.screen.blit(text, text_rect)
+        
+        # Pássaro sendo arrastado
+        if self.selected_bird:
+            pygame.draw.circle(self.screen, self.selected_bird["color"], pygame.mouse.get_pos(), self.bird_radius, 3)
+        
+        # Botões
+        pygame.draw.rect(self.screen, BUTTON_COLOR, self.hint_button)
+        text = self.font.render("Dica", True, WHITE)
+        self.screen.blit(text, (self.hint_button.x + 30, self.hint_button.y + 10))
+        
+        pygame.draw.rect(self.screen, CONSOLE_BUTTON_COLOR, self.console_button)
+        text = self.font.render("Console", True, WHITE)
+        self.screen.blit(text, (self.console_button.x + 20, self.console_button.y + 10))
+        
+        # Dica
+        if self.show_hint and self.hint_move:
+            origem, destino = self.hint_move
+            text = self.big_font.render(f"Dica: Mover de {origem} para {destino}", True, BLACK)
+            self.screen.blit(text, (200, 450))
+        
+        # Mensagem de vitória
+        if verifica_se_ganhou(self.tabuleiro):
+            text = self.big_font.render("Parabéns! Você venceu!", True, GREEN)
+            self.screen.blit(text, (250, 400))
+        
+        pygame.display.flip()
+    
+    def get_hint(self):
+        """Procura um movimento válido para sugerir ao jogador"""
+        for origem in self.tabuleiro:
+            if self.tabuleiro[origem] == 'X' or not self.tabuleiro[origem]:
+                continue
+            
+            for destino in self.tabuleiro:
+                if origem == destino or self.tabuleiro[destino] == 'X':
+                    continue
+                
+                if verifica_se_pode_voar(self.tabuleiro, origem, destino):
+                    self.hint_move = (origem, destino)
+                    return
+        
+        self.hint_move = None
+    
+    def run_console_mode(self):
+        """Alterna para o modo de console"""
+        print("\n=== MODO CONSOLE ===")
+        exibe_tabuleiro(self.tabuleiro)
+        
+        while True:
+            cmd = input("\nDica (D), Sair (S) ou Enter para continuar: ").upper()
+            
+            if cmd == 'S':
+                print("Retornando para a interface gráfica...")
+                return False
+            elif cmd == 'D':
+                self.get_hint()
+                if self.hint_move:
+                    print(f"Dica: Mover de {self.hint_move[0]} para {self.hint_move[1]}")
                 else:
-                    # Se há um pássaro selecionado, tentamos mover para o galho clicado
-                    for i in range(total_branches_with_extra):
-                        # Determina se o galho está na esquerda ou direita
-                        if i % 2 == 0:  # Galhos na esquerda
-                            branch_x = branch_x_left
-                        else:  # Galhos na direita
-                            branch_x = branch_x_right
+                    print("Nenhuma dica disponível no momento.")
+                continue
+            
+            print("\nGalhos disponíveis:")
+            for i, (galho, passaros) in enumerate(self.tabuleiro.items()):
+                print(f"{i}: {galho} - {passaros}")
+            
+            try:
+                escolha_origem = int(input("Escolha o número do galho de origem: "))
+                escolha_destino = int(input("Escolha o número do galho de destino: "))
+                
+                origem = list(self.tabuleiro.keys())[escolha_origem]
+                destino = list(self.tabuleiro.keys())[escolha_destino]
+                
+                if realiza_voo_passaro(self.tabuleiro, origem, destino):
+                    print(f"Movimento realizado: {origem} -> {destino}")
+                    self.update_visualization()
+                    
+                    if verifica_se_ganhou(self.tabuleiro):
+                        print("\nParabéns! Você venceu o jogo!")
+                        return True
+                    
+                    exibe_tabuleiro(self.tabuleiro)
+                else:
+                    print("Movimento inválido! Tente novamente.")
+            except (ValueError, IndexError):
+                print("Entrada inválida! Use os números dos galhos.")
+    
+    def run(self):
+        """Loop principal do jogo"""
+        clock = pygame.time.Clock()
+        running = True
+        
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    running = False
+                
+                if event.type == MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    
+                    # Botão de dica
+                    if self.hint_button.collidepoint(mouse_pos):
+                        self.show_hint = True
+                        self.get_hint()
+                        continue
+                    
+                    # Botão do console
+                    if self.console_button.collidepoint(mouse_pos):
+                        if self.run_console_mode():  # Se retornar True, o jogador venceu
+                            self.draw()  # Atualiza a tela com mensagem de vitória
+                            pygame.time.delay(2000)  # Mostra a mensagem por 2 segundos
+                        continue
+                    
+                    # Seleciona pássaro
+                    if self.selected_bird is None:
+                        for branch_idx in self.birds:
+                            selectable_bird = self.get_selectable_bird(branch_idx)
+                            print(selectable_bird, branch_idx)
+                            if selectable_bird:
+                                
+                                bx, by = selectable_bird["pos"]
+                                print(self.birds[branch_idx])
+                                
+                                print(mouse_pos[0], mouse_pos[1])
 
-                        row = i // 2
-                        branch_y = galho_y + (row * branch_spacing)
+                                print(bx, by)
+                                
+                                if (bx - self.bird_radius <= mouse_pos[0] <= bx + self.bird_radius and
+                                    by - self.bird_radius <= mouse_pos[1] <= by + self.bird_radius):
+                                    print("selecionado", selectable_bird)
+                                    self.selected_bird = selectable_bird
+                                    self.from_branch = list(self.tabuleiro.keys())[branch_idx]
+                                    break
+                    else:
+                        # Tenta mover o pássaro
+                        for branch_idx in range(len(self.tabuleiro)):
+                            if self.is_click_on_branch(mouse_pos, branch_idx):
+                                destino = list(self.tabuleiro.keys())[branch_idx]
+                                print("tenta mover", destino, self.from_branch)
+                                # Verifica se o movimento é válido
+                                if self.from_branch != destino:  # Não pode mover para o mesmo galho
+                                    if realiza_voo_passaro(self.tabuleiro, self.from_branch, destino):
+                                        self.show_hint = False
+                                        self.update_visualization()
+                                break
+                        print("no else")
+                        self.selected_bird = None
+                        self.from_branch = None
+            
+            self.draw()
+            clock.tick(60)
+        
+        pygame.quit()
+    
+    def is_click_on_branch(self, mouse_pos, branch_idx):
+        """Verifica se o clique foi em um galho específico"""
+        branch_x = self.branch_x_left if branch_idx % 2 == 0 else self.branch_x_right
+        branch_y = self.galho_y + (branch_idx // 2) * self.branch_spacing
+        
+        return (branch_x <= mouse_pos[0] <= branch_x + self.branch_width and
+                branch_y <= mouse_pos[1] <= branch_y + self.branch_height)
 
-                        # Verifica se o clique foi dentro de algum galho
-                        if branch_x <= mouse_pos[0] <= branch_x + branch_width and branch_y <= mouse_pos[1] <= branch_y + branch_height:
-                            # Adiciona o pássaro ao novo galho, removendo do galho original
-                            if i != from_branch and len(birds[i]) < birds_per_branch:
-                                # Recalcular a posição do pássaro no novo galho
-                                if i % 2 == 0:  # Galho à esquerda
-                                    new_x = branch_x + (len(birds[i]) * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
-                                    new_y = branch_y - bird_radius
-                                    selected_bird["pos"] = (new_x, new_y)
-                                    birds[i].append(selected_bird)  # Adiciona na posição mais à esquerda
-                                else:  # Galho à direita
-                                    new_x = branch_x + ((birds_per_branch - len(birds[i]) - 1) * (branch_width // birds_per_branch)) + (branch_width // (2 * birds_per_branch))
-                                    new_y = branch_y - bird_radius
-                                    selected_bird["pos"] = (new_x, new_y)
-                                    birds[i].insert(0, selected_bird)  # Adiciona na posição mais à direita
-
-                                birds[from_branch].remove(selected_bird)
-                                selected_bird = None  # Limpa a seleção
-                                from_branch = None
-                                print(f"Pássaro movido para o galho {i}")
-                            break
-
-        # Desenha todos os galhos (incluindo os dois galhos extras, que ficam vazios)
-        for i in range(total_branches_with_extra):
-            if i % 2 == 0:  # Galhos na esquerda
-                branch_x = branch_x_left
-            else:  # Galhos na direita
-                branch_x = branch_x_right
-
-            row = i // 2
-            branch_y = galho_y + (row * branch_spacing)
-            pygame.draw.rect(screen, (0, 0, 0), (branch_x, branch_y, branch_width, branch_height), 2)
-
-        # Desenha os pássaros apenas nos galhos preenchidos
-        for branch_birds in birds.values():
-            for bird in branch_birds:
-                pygame.draw.circle(screen, bird["color"], bird["pos"], bird_radius)
-
-        # Atualiza a tela
-        pygame.display.update()
-
-    # Encerra o Pygame
-    pygame.quit()
+if __name__ == "__main__":
+    game = BirdSortGame(qntd_galhos=4)
+    game.run()

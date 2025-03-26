@@ -48,7 +48,7 @@ def define_tabuleiro_manualmente(qntd_galhos):
     print("\nTabuleiro criado com sucesso:")
     return tabuleiro
 
-def define_tabuleiro(qntd_galhos, tam_pilha):
+def define_tabuleiro(qntd_galhos):
     # define tabuleiro inicial, com as pilhas dos pássaros e os galhos
     tabuleiro = {}
     aux = 0

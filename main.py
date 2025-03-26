@@ -24,7 +24,7 @@ def main():
         while tabuleiro == None:
             tabuleiro = define_tabuleiro_manualmente(galhos)
     else:
-        tabuleiro = define_tabuleiro(galhos, 0)
+        tabuleiro = define_tabuleiro(galhos)
         tabuleiro = popula_tabuleiro(tabuleiro)
     print(tabuleiro)
     exibe_tabuleiro(tabuleiro)
