@@ -1,5 +1,5 @@
 from src.functions import *
-import src.algorithm as algorithm
+from src.algorithm import *
 from src.interface import BirdSortGame
 from results.results import *
 
@@ -41,35 +41,35 @@ def main():
     if modo == 'S':
 
         print("\nResolvendo o jogo com A*...")
-        a_star = algorithm.Algoritmo()
+        a_star = Algoritmo()
         a_star.resolver_com_a_estrela(tabuleiro)
         tempo, qntd_caminhos = a_star.exibe()
 
         registrar_execucao('a_star', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com Custo Uniforme...")
-        ucs = algorithm.Algoritmo()
+        ucs = Algoritmo()
         ucs.resolver_com_custo_uniforme(tabuleiro)
         tempo, qntd_caminhos = ucs.exibe()
 
         registrar_execucao('ucs', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com DFS...")
-        dfs = algorithm.Algoritmo()
+        dfs = Algoritmo()
         dfs.resolver_com_dfs(tabuleiro)
         tempo, qntd_caminhos = dfs.exibe()
 
         registrar_execucao('dfs', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com DFS Iterarivo...")
-        dfsi = algorithm.Algoritmo()
+        dfsi = Algoritmo()
         dfsi.resolver_com_interatividade(tabuleiro)
         tempo, qntd_caminhos = dfsi.exibe()
 
         registrar_execucao('dfsi', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com BFS...")
-        bfs = algorithm.Algoritmo()
+        bfs = Algoritmo()
         bfs.resolver_com_bfs(tabuleiro)
         tempo, qntd_caminhos = bfs.exibe()
 
@@ -91,8 +91,8 @@ def main():
                 
                 escolha_dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
                 if escolha_dica == 'D' or escolha_dica == 'd':
-                    print("\nRProcurando próximo movimento...")
-                    algoritmo = algorithm()  # Cria uma instância
+                    print("\nProcurando próximo movimento...")
+                    algoritmo = Algoritmo()
                     dica = algoritmo.consegue_dica(tabuleiro=tabuleiro)
                     print("Movimento:")
                     print(dica)
