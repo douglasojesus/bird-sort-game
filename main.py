@@ -53,9 +53,14 @@ def main():
         #dfsi.resolver_com_interatividade(tabuleiro)
         #dfsi.exibe()
 
-        print("\nResolvendo o jogo com Custo Uniforme...")
+        #print("\nResolvendo o jogo com Custo Uniforme...")
+        #ucs = algorithm.Algoritmo()
+        #ucs.resolver_com_custo_uniforme(tabuleiro)
+        #ucs.exibe()
+
+        print("\nResolvendo o jogo com A*...")
         ucs = algorithm.Algoritmo()
-        ucs.resolver_com_custo_uniforme(tabuleiro)
+        ucs.resolver_com_a_estrela(tabuleiro)
         ucs.exibe()
     
     else:
