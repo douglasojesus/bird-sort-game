@@ -323,3 +323,4 @@ class Algoritmo:
                 print(f"Mover de {movimento[0]} para {movimento[1]}")
         else:
             print("Não foi possível encontrar uma solução.")
+        return self.tempo_algoritmo, len(self.caminho)

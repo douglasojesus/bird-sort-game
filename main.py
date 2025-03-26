@@ -1,6 +1,7 @@
 from src.functions import *
 import src.algorithm as algorithm
 from src import interfaceGame
+from results.results import *
 
 # criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
 # ele insere os galhos e como eles vão estar ajustados, ao invés de aleatoriamente
@@ -38,30 +39,43 @@ def main():
 
     modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
     if modo == 'S':
+
+        print("\nResolvendo o jogo com A*...")
+        a_star = algorithm.Algoritmo()
+        a_star.resolver_com_a_estrela(tabuleiro)
+        tempo, qntd_caminhos = a_star.exibe()
+
+        #ver isso de registrar a execução
+        #registrar_execucao('a_star', tempo:.4, qntd_caminhos)
+
+        print("\nResolvendo o jogo com Custo Uniforme...")
+        ucs = algorithm.Algoritmo()
+        ucs.resolver_com_custo_uniforme(tabuleiro)
+        ucs.exibe()
+
+        print("\nResolvendo o jogo com DFS...")
+        dfs = algorithm.Algoritmo()
+        dfs.resolver_com_dfs(tabuleiro)
+        dfs.exibe()
+
+        print("\nResolvendo o jogo com DFS Iterarivo...")
+        dfsi = algorithm.Algoritmo()
+        dfsi.resolver_com_interatividade(tabuleiro)
+        dfsi.exibe()
+
         print("\nResolvendo o jogo com BFS...")
         bfs = algorithm.Algoritmo()
         bfs.resolver_com_bfs(tabuleiro)
         bfs.exibe()
+
         
-        #print("\nResolvendo o jogo com DFS...")
-        #dfs = algorithm.Algoritmo()
-        #dfs.resolver_com_dfs(tabuleiro)
-        #dfs.exibe()
+        
 
-        #print("\nResolvendo o jogo com DFS Iterarivo...")
-        #dfsi = algorithm.Algoritmo()
-        #dfsi.resolver_com_interatividade(tabuleiro)
-        #dfsi.exibe()
+        
 
-        #print("\nResolvendo o jogo com Custo Uniforme...")
-        #ucs = algorithm.Algoritmo()
-        #ucs.resolver_com_custo_uniforme(tabuleiro)
-        #ucs.exibe()
+        
 
-        print("\nResolvendo o jogo com A*...")
-        ucs = algorithm.Algoritmo()
-        ucs.resolver_com_a_estrela(tabuleiro)
-        ucs.exibe()
+        
     
     else:
         interfaceGame.startGame(galhos, tabuleiro)
