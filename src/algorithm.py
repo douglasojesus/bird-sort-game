@@ -327,3 +327,12 @@ class Algoritmo:
         else:
             print("Não foi possível encontrar uma solução.")
         return self.tempo_algoritmo, len(self.caminho)
+        
+    def consegue_dica(self, tabuleiro):
+        """Retorna uma dica (movimento sugerido)"""
+        caminho = self.resolver_com_a_estrela(tabuleiro)
+
+        if caminho and len(caminho) > 0:
+            self.caminho = caminho
+            return f"Mover de {caminho[0][0]} para {caminho[0][1]}"
+        return None

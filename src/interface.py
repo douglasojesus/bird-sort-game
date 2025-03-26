@@ -2,6 +2,7 @@ import pygame
 import sys
 from pygame.locals import *
 from src.functions import *
+from src.algorithm import *
 
 # Configurações de cores
 WHITE = (255, 255, 255)
@@ -135,8 +136,8 @@ class BirdSortGame:
         
         # Dica
         if self.show_hint and self.hint_move:
-            origem, destino = self.hint_move
-            text = self.big_font.render(f"Dica: Mover de {origem} para {destino}", True, BLACK)
+            hint = self.hint_move
+            text = self.big_font.render(f"{hint}", True, BLACK)
             self.screen.blit(text, (200, 450))
         
         # Mensagem de vitória
@@ -148,8 +149,9 @@ class BirdSortGame:
     
     def get_hint(self):
         """Procura um movimento válido para sugerir ao jogador"""
-        dica = consegue_dica(self.tabuleiro)
-        self.hint_move = dica
+        algoritmo = Algoritmo()  # Cria uma instância
+        hint = algoritmo.consegue_dica(tabuleiro=self.tabuleiro)
+        self.hint_move = hint
     
     def run_console_mode(self):
         """Alterna para o modo de console"""

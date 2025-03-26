@@ -1,6 +1,6 @@
 from src.functions import *
 import src.algorithm as algorithm
-from src.interfaceGame import BirdSortGame
+from src.interface import BirdSortGame
 from results.results import *
 
 # criar possibilidade de iniciar jogo a partir de um tabuleiro criado pelo professor
@@ -92,7 +92,8 @@ def main():
                 escolha_dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
                 if escolha_dica == 'D' or escolha_dica == 'd':
                     print("\nRProcurando próximo movimento...")
-                    dica = consegue_dica(tabuleiro)
+                    algoritmo = algorithm()  # Cria uma instância
+                    dica = algoritmo.consegue_dica(tabuleiro=tabuleiro)
                     print("Movimento:")
                     print(dica)
                     
