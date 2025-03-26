@@ -29,8 +29,8 @@ def startGame(galhos, tabuleiro):
     branch_height = 15
     bird_radius = 10
     branch_spacing = 100  # Espaço vertical entre galhos
-    branch_x_left = 0  # Posição inicial dos galhos à esquerda
-    branch_x_right = 250  # Posição inicial dos galhos à direita
+    branch_x_left = 10  # Posição inicial dos galhos à esquerda
+    branch_x_right = 240  # Posição inicial dos galhos à direita
     galho_y = 200  # Posição inicial vertical do primeiro galho
 
     # Inicializando a estrutura de pássaros
