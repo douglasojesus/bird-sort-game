@@ -76,7 +76,6 @@ def main():
         registrar_execucao('bfs', tempo, qntd_caminhos)
 
         exibir_resultados_comparativos()
-        
     
     else:
         tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()
