@@ -19,7 +19,7 @@ def registrar_execucao(nome_algoritmo, tempo_execucao, qtd_caminhos):
 
     # Carrega os dados existentes ou cria estrutura vazia
     try:
-        with open('results.json', 'r') as f:
+        with open('results/results.json', 'r') as f:
             dados = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         dados = {
@@ -40,7 +40,7 @@ def registrar_execucao(nome_algoritmo, tempo_execucao, qtd_caminhos):
         }]
 
     # Salva no arquivo
-    with open('results.json', 'w') as f:
+    with open('results/results.json', 'w') as f:
         json.dump(dados, f, indent=4)
 
 def exibir_resultados_comparativos():
@@ -48,7 +48,7 @@ def exibir_resultados_comparativos():
     Exibe todos os resultados registrados de forma comparativa e organizada
     """
     try:
-        with open('results.json', 'r') as f:
+        with open('results/results.json', 'r') as f:
             dados = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         print("Nenhum dado de execução registrado ainda.")

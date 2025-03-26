@@ -45,28 +45,37 @@ def main():
         a_star.resolver_com_a_estrela(tabuleiro)
         tempo, qntd_caminhos = a_star.exibe()
 
-        #ver isso de registrar a execução
-        #registrar_execucao('a_star', tempo:.4, qntd_caminhos)
+        registrar_execucao('a_star', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com Custo Uniforme...")
         ucs = algorithm.Algoritmo()
         ucs.resolver_com_custo_uniforme(tabuleiro)
-        ucs.exibe()
+        tempo, qntd_caminhos = ucs.exibe()
+
+        registrar_execucao('ucs', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com DFS...")
         dfs = algorithm.Algoritmo()
         dfs.resolver_com_dfs(tabuleiro)
-        dfs.exibe()
+        tempo, qntd_caminhos = dfs.exibe()
+
+        registrar_execucao('dfs', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com DFS Iterarivo...")
         dfsi = algorithm.Algoritmo()
         dfsi.resolver_com_interatividade(tabuleiro)
-        dfsi.exibe()
+        tempo, qntd_caminhos = dfsi.exibe()
+
+        registrar_execucao('dfsi', tempo, qntd_caminhos)
 
         print("\nResolvendo o jogo com BFS...")
         bfs = algorithm.Algoritmo()
         bfs.resolver_com_bfs(tabuleiro)
-        bfs.exibe()
+        tempo, qntd_caminhos = bfs.exibe()
+
+        registrar_execucao('bfs', tempo, qntd_caminhos)
+
+        exibir_resultados_comparativos()
 
         
         

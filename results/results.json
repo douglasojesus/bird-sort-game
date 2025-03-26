@@ -1,0 +1,112 @@
+{
+    "a_star": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.20757150650024414,
+            "quantidade_de_caminhos": 13
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.13405919075012207,
+            "quantidade_de_caminhos": 9
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.2123253345489502,
+            "quantidade_de_caminhos": 11
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.17812800407409668,
+            "quantidade_de_caminhos": 10
+        }
+    ],
+    "ucs": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.008420467376708984,
+            "quantidade_de_caminhos": 12
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.006211519241333008,
+            "quantidade_de_caminhos": 8
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.3015012741088867,
+            "quantidade_de_caminhos": 10
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.0042569637298583984,
+            "quantidade_de_caminhos": 9
+        }
+    ],
+    "dfsi": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.01567363739013672,
+            "quantidade_de_caminhos": 13
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.016087055206298828,
+            "quantidade_de_caminhos": 10
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.01579880714416504,
+            "quantidade_de_caminhos": 12
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.015713214874267578,
+            "quantidade_de_caminhos": 14
+        }
+    ],
+    "bfs": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 2.7091290950775146,
+            "quantidade_de_caminhos": 11
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.3967604637145996,
+            "quantidade_de_caminhos": 8
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 1.3359062671661377,
+            "quantidade_de_caminhos": 10
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.9352281093597412,
+            "quantidade_de_caminhos": 9
+        }
+    ],
+    "dfs": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.008369684219360352,
+            "quantidade_de_caminhos": 95
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.005090951919555664,
+            "quantidade_de_caminhos": 54
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.01175236701965332,
+            "quantidade_de_caminhos": 147
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.013869524002075195,
+            "quantidade_de_caminhos": 108
+        }
+    ]
+}
