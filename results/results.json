@@ -2,12 +2,183 @@
     "a_star": [
         {
             "numero_da_execucao": 1,
-            "tempo_de_execucao": 391.2779700756073,
-            "quantidade_de_caminhos": 32
+            "tempo_de_execucao": 0.12542223930358887,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 4841
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.05877947807312012,
+            "quantidade_de_caminhos": 9,
+            "quantidade_de_estados_gerados": 2558
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.13616538047790527,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 5401
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.0988466739654541,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 3689
         }
     ],
-    "ucs": [],
-    "dfsi": [],
-    "bfs": [],
-    "dfs": []
+    "ucs": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.012912511825561523,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 1373
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.0029990673065185547,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 223
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.00325775146484375,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 359
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.004317522048950195,
+            "quantidade_de_caminhos": 7,
+            "quantidade_de_estados_gerados": 402
+        }
+    ],
+    "dfsi": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.007041215896606445,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 6319
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.007052183151245117,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 4578
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.0063893795013427734,
+            "quantidade_de_caminhos": 14,
+            "quantidade_de_estados_gerados": 5431
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.003264904022216797,
+            "quantidade_de_caminhos": 9,
+            "quantidade_de_estados_gerados": 2147
+        }
+    ],
+    "bfs": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 3.1136038303375244,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 158943
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.2953009605407715,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 17354
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 1.6058857440948486,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 92639
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.15012097358703613,
+            "quantidade_de_caminhos": 7,
+            "quantidade_de_estados_gerados": 7444
+        }
+    ],
+    "dfs": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.00400090217590332,
+            "quantidade_de_caminhos": 100,
+            "quantidade_de_estados_gerados": 281
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.007302761077880859,
+            "quantidade_de_caminhos": 163,
+            "quantidade_de_estados_gerados": 475
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.004807949066162109,
+            "quantidade_de_caminhos": 130,
+            "quantidade_de_estados_gerados": 381
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.007415294647216797,
+            "quantidade_de_caminhos": 150,
+            "quantidade_de_estados_gerados": 423
+        }
+    ],
+    "a_star_p": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.004558086395263672,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 202
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.0010001659393310547,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 61
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.004389524459838867,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 288
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.0009624958038330078,
+            "quantidade_de_caminhos": 7,
+            "quantidade_de_estados_gerados": 81
+        }
+    ],
+    "greedy": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 0.15793204307556152,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 6025
+        },
+        {
+            "numero_da_execucao": 2,
+            "tempo_de_execucao": 0.09947586059570312,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 4019
+        },
+        {
+            "numero_da_execucao": 3,
+            "tempo_de_execucao": 0.12959814071655273,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 5109
+        },
+        {
+            "numero_da_execucao": 4,
+            "tempo_de_execucao": 0.09237146377563477,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 3635
+        }
+    ]
 }

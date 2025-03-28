@@ -37,54 +37,53 @@ def main():
         print("\nResolvendo o jogo com BFS...")
         bfs = Algoritmo()
         bfs.resolver_com_bfs(tabuleiro)
-        tempo, qntd_caminhos = bfs.exibe()
+        tempo, qntd_caminhos, estados_gerados = bfs.exibe()
+
+        registrar_execucao('bfs', tempo, qntd_caminhos, estados_gerados)
 
         print("\nResolvendo o jogo com Busca Gulosa...")
         greedy = Algoritmo()
         greedy.resolver_com_busca_gulosa(tabuleiro)
-        tempo, qntd_caminhos = greedy.exibe()
+        tempo, qntd_caminhos, estados_gerados = greedy.exibe()
+
+        registrar_execucao('greedy', tempo, qntd_caminhos, estados_gerados)
 
         print("\nResolvendo o jogo com A estrela Ponderada...")
         a_star_p = Algoritmo()
         a_star_p.resolver_com_a_estrela_ponderado(tabuleiro)
-        tempo, qntd_caminhos = a_star_p.exibe()
+        tempo, qntd_caminhos, estados_gerados = a_star_p.exibe()
 
-        """print("\nResolvendo o jogo com A*...")
+        registrar_execucao('a_star_p', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com A*...")
         a_star = Algoritmo()
         a_star.resolver_com_a_estrela(tabuleiro)
-        tempo, qntd_caminhos = a_star.exibe()
+        tempo, qntd_caminhos, estados_gerados = a_star.exibe()
 
-        registrar_execucao('a_star', tempo, qntd_caminhos)
+        registrar_execucao('a_star', tempo, qntd_caminhos, estados_gerados)
 
         print("\nResolvendo o jogo com Custo Uniforme...")
         ucs = Algoritmo()
         ucs.resolver_com_custo_uniforme(tabuleiro)
-        tempo, qntd_caminhos = ucs.exibe()
+        tempo, qntd_caminhos, estados_gerados = ucs.exibe()
 
-        registrar_execucao('ucs', tempo, qntd_caminhos)
+        registrar_execucao('ucs', tempo, qntd_caminhos, estados_gerados)
 
         print("\nResolvendo o jogo com DFS...")
         dfs = Algoritmo()
         dfs.resolver_com_dfs(tabuleiro)
-        tempo, qntd_caminhos = dfs.exibe()
+        tempo, qntd_caminhos, estados_gerados = dfs.exibe()
 
-        registrar_execucao('dfs', tempo, qntd_caminhos)
+        registrar_execucao('dfs', tempo, qntd_caminhos, estados_gerados)
 
         print("\nResolvendo o jogo com DFS Iterarivo...")
         dfsi = Algoritmo()
         dfsi.resolver_com_interatividade(tabuleiro)
-        tempo, qntd_caminhos = dfsi.exibe()
+        tempo, qntd_caminhos, estados_gerados = dfsi.exibe()
 
-        registrar_execucao('dfsi', tempo, qntd_caminhos)
+        registrar_execucao('dfsi', tempo, qntd_caminhos, estados_gerados)
 
-        print("\nResolvendo o jogo com BFS...")
-        bfs = Algoritmo()
-        bfs.resolver_com_bfs(tabuleiro)
-        tempo, qntd_caminhos = bfs.exibe()
-
-        registrar_execucao('bfs', tempo, qntd_caminhos)
-
-        exibir_resultados_comparativos()"""
+        exibir_resultados_comparativos()
     
     else:
         tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()

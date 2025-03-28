@@ -2,7 +2,7 @@ import json
 import os
 from collections import defaultdict
 
-def registrar_execucao(nome_algoritmo, tempo_execucao, qtd_caminhos):
+def registrar_execucao(nome_algoritmo, tempo_execucao, qtd_caminhos, estados_gerados):
     """
     Registra uma execução no arquivo results.json
     
@@ -14,7 +14,8 @@ def registrar_execucao(nome_algoritmo, tempo_execucao, qtd_caminhos):
     # Dados da nova execução
     nova_execucao = {
         'tempo_de_execucao': tempo_execucao,
-        'quantidade_de_caminhos': qtd_caminhos
+        'quantidade_de_caminhos': qtd_caminhos,
+        'quantidade_de_estados_gerados': estados_gerados
     }
 
     # Carrega os dados existentes ou cria estrutura vazia
@@ -23,7 +24,7 @@ def registrar_execucao(nome_algoritmo, tempo_execucao, qtd_caminhos):
             dados = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         dados = {
-            'a_star': [], 'ucs': [], 'dfsi': [], 'bfs': [], 'dfs': []
+            'a_star': [], 'ucs': [], 'dfsi': [], 'bfs': [], 'dfs': [], 'a_star_p': [], 'greedy': []
         }
 
     # Adiciona a nova execução
@@ -62,7 +63,8 @@ def exibir_resultados_comparativos():
                 execucao['numero_da_execucao'],
                 algoritmo,
                 execucao['tempo_de_execucao'],
-                execucao['quantidade_de_caminhos']
+                execucao['quantidade_de_caminhos'],
+                execucao['quantidade_de_estados_gerados']
             ))
 
     # Ordena por número de execução e depois por algoritmo
@@ -70,8 +72,8 @@ def exibir_resultados_comparativos():
 
     # Exibe os resultados formatados
     print("\n=== RESULTADOS COMPARATIVOS ===")
-    print(f"{'Exec.':<6} | {'Algoritmo':<8} | {'Tempo (s)':<10} | {'Caminhos':<8}")
-    print("-" * 45)
+    print(f"{'Exec.':<6} | {'Algoritmo':<8} | {'Tempo (s)':<10} | {'Caminhos':<8} | {'Estados Gerados':<10}")
+    print("-" * 60)
     
     for execucao in tabela:
-        print(f"{execucao[0]:<6} | {execucao[1]:<8} | {execucao[2]:<10.4f} | {execucao[3]:<8}")
+        print(f"{execucao[0]:<6} | {execucao[1]:<8} | {execucao[2]:<10.4f} | {execucao[3]:<8} | {execucao[4]:<10}")

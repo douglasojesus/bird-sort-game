@@ -76,6 +76,7 @@ class Algoritmo:
                             novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
                             if novo_estado_tuple not in visitados:
                                 fila.append((novo_estado, caminho + [(origem, destino)]))  # Adiciona o sucessor à fila
+                                self.estados_gerados += 1
 
         return None  # Retorna None se não encontrar solução
 
@@ -119,6 +120,7 @@ class Algoritmo:
                             novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
                             if novo_estado_tuple not in visitados:
                                 pilha.append((novo_estado, caminho + [(origem, destino)], profundidade + 1))  # Adiciona o sucessor à pilha
+                                self.estados_gerados += 1
 
         return None  # Retorna None se não encontrar solução
 
@@ -187,6 +189,7 @@ class Algoritmo:
                                 novo_estado,
                                 caminho + [(origem, destino)]
                             ))
+                            self.estados_gerados += 1
 
         return None
     
@@ -254,7 +257,7 @@ class Algoritmo:
 
         # Adiciona o estado inicial com a nova heurística
         fila_prioridade.put((
-            self.heuristica_modular_simples(tabuleiro),
+            self.calcular_heuristica_liberacao(tabuleiro),
             next(contador),
             tabuleiro,
             []
@@ -288,13 +291,14 @@ class Algoritmo:
                         novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
 
                         if novo_estado_tuple not in visitados:
-                            heuristica = self.heuristica_modular_simples(novo_estado)
+                            heuristica = self.calcular_heuristica_liberacao(novo_estado)
                             fila_prioridade.put((
                                 heuristica,
                                 next(contador),
                                 novo_estado,
                                 caminho + [(origem, destino)]
                             ))
+                            self.estados_gerados += 1
 
         return None
 
@@ -416,6 +420,7 @@ class Algoritmo:
                                 caminho + [(origem, destino)],
                                 novo_custo
                             ))
+                            self.estados_gerados += 1
 
         return None  
     
@@ -509,6 +514,7 @@ class Algoritmo:
                                 caminho + [(origem, destino)],
                                 novo_custo
                             ))
+                            self.estados_gerados += 1
 
         return None
 
@@ -516,12 +522,13 @@ class Algoritmo:
         if self.caminho:
             print(f"Solução encontrada em {len(self.caminho)} movimentos!")
             print(f"Solução encontrada em {self.tempo_algoritmo:.4} segundos.")
+            print(f"Foram gerados {self.estados_gerados} estados para essa solução.")
             print("Sequência de movimentos:")
             for movimento in self.caminho:
                 print(f"Mover de {movimento[0]} para {movimento[1]}")
         else:
             print("Não foi possível encontrar uma solução.")
-        return self.tempo_algoritmo, len(self.caminho)
+        return self.tempo_algoritmo, len(self.caminho), self.estados_gerados
         
     def consegue_dica(self, tabuleiro):
         """Retorna uma dica (movimento sugerido)"""

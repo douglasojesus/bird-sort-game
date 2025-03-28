@@ -162,7 +162,7 @@ Cada algoritmo tem características distintas na forma de explorar o espaço de 
 ### Funcionamento
 - Considera apenas o valor heurístico (ignora custo do caminho)
 - Utiliza **fila de prioridade** ordenada apenas por h(n)
-- Implementa mesma heurística simplificada do A* Ponderado
+- Implementa mesma heurística de liberação
 
 ### Características
 - **Não Completo**: Pode falhar em encontrar solução existente
