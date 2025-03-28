@@ -44,7 +44,10 @@ def main():
         greedy.resolver_com_busca_gulosa(tabuleiro)
         tempo, qntd_caminhos = greedy.exibe()
 
-        
+        print("\nResolvendo o jogo com A estrela Ponderada...")
+        a_star_p = Algoritmo()
+        a_star_p.resolver_com_a_estrela_ponderado(tabuleiro)
+        tempo, qntd_caminhos = a_star_p.exibe()
 
         """print("\nResolvendo o jogo com A*...")
         a_star = Algoritmo()

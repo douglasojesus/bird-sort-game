@@ -443,8 +443,74 @@ class Algoritmo:
         
         return pontos
 
-    def resolver_com_a_estrela_ponderado(self, tabuleiro):
-        pass
+    def resolver_com_a_estrela_ponderado(self, tabuleiro, peso_heuristica=1.5):
+        """
+        Implementação do algoritmo A* ponderado para resolver o problema.
+        f(n) = g(n) + w * h(n), onde w é o peso da heurística
+        
+        Args:
+            tabuleiro: estado inicial do tabuleiro
+            peso_heuristica: peso dado ao componente heurístico (default=1.5)
+        """
+        self.inicia()
+        fila_prioridade = PriorityQueue()
+        contador = itertools.count()  # Para desempate na fila de prioridade
+        visitados = set()  # Armazena estados já explorados
+
+        # Adiciona o estado inicial: (f(n), id, estado, caminho, g(n))
+        fila_prioridade.put((
+            0 + peso_heuristica * self.heuristica_modular_simples(tabuleiro),
+            next(contador),
+            tabuleiro,
+            [],
+            0
+        ))
+
+        while not fila_prioridade.empty():
+            _, _, estado_atual, caminho, custo_acumulado = fila_prioridade.get()
+
+            # Verifica se é estado objetivo
+            if verifica_se_ganhou(estado_atual):
+                self.caminho = caminho
+                self.finaliza()
+                return caminho
+
+            # Converte para tupla para armazenar no conjunto de visitados
+            estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in estado_atual.items())
+            if estado_tuple in visitados:
+                continue
+            visitados.add(estado_tuple)
+
+            # Gera todos os movimentos possíveis
+            for origem in estado_atual:
+                if not estado_atual[origem] or estado_atual[origem] == 'X':
+                    continue  # Ignora galhos vazios/quebrados
+
+                passaro = estado_atual[origem][-1]  # Pássaro no topo
+
+                for destino in estado_atual:
+                    if origem == destino or estado_atual[destino] == 'X':
+                        continue  # Movimento inválido
+
+                    # Cria novo estado
+                    novo_estado = {k: v.copy() if v != 'X' else 'X' for k, v in estado_atual.items()}
+                    
+                    if verifica_se_pode_voar(novo_estado, origem, destino):
+                        realiza_voo_passaro(novo_estado, origem, destino)
+                        novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
+
+                        if novo_estado_tuple not in visitados:
+                            novo_custo = custo_acumulado + 1
+                            prioridade = novo_custo + peso_heuristica * self.heuristica_modular_simples(novo_estado)
+                            fila_prioridade.put((
+                                prioridade,
+                                next(contador),
+                                novo_estado,
+                                caminho + [(origem, destino)],
+                                novo_custo
+                            ))
+
+        return None
 
     def exibe(self):
         if self.caminho:
