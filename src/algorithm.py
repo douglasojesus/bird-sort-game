@@ -23,7 +23,7 @@ class Algoritmo:
 
     def finaliza(self):
         self.tempo_final = time.time()
-        self.tempo_algoritmo = self.tempo_final - self.tempo_inicio
+        self.tempo_algoritmo = float(self.tempo_final - self.tempo_inicio)
 
     def getEstadosGerados(self):
         return self.estados_gerados
@@ -189,9 +189,114 @@ class Algoritmo:
                             ))
 
         return None
+    
+    def calcular_heuristica_liberacao(self, estado):
+        """Nova heurística focada em liberação de espaço e mobilidade"""
+        pontos = 0
+        grupos_prioritarios = []
+        
+        # Fator de congestionamento por galho
+        congestionamento = {galho: 0 for galho in estado}
+        
+        # 1. Identificar grupos prioritários e calcular congestionamento
+        for galho, passaros in estado.items():
+            if passaros == 'X' or not passaros:
+                continue
+                
+            # Penalidade por galhos muito cheios (exceto se forem grupos bons)
+            if len(passaros) >= 3:
+                passaro_mais_comum = max(set(passaros), key=passaros.count)
+                qtd = passaros.count(passaro_mais_comum)
+                
+                if qtd < 3:  # Se estiver cheio mas não formando grupo bom
+                    congestionamento[galho] = len(passaros) * 10  # Penalidade alta
+                    
+            # Bonificação para grupos quase completos
+            if len(set(passaros)) == 1 and len(passaros) >= 2:
+                pontos -= 50 * len(passaros)  # Grupo uniforme é bom
+                
+        # 2. Analisar mobilidade dos pássaros no topo
+        for galho, passaros in estado.items():
+            if passaros == 'X' or not passaros:
+                continue
+                
+            topo = passaros[-1]
+            movimentos_possiveis = 0
+            
+            # Verifica para quantos galhos este pássaro pode voar
+            for outro_galho in estado:
+                if (outro_galho != galho and estado[outro_galho] != 'X' and 
+                    (not estado[outro_galho] or estado[outro_galho][-1] == topo)):
+                    movimentos_possiveis += 1
+                    
+            # Bonificação por pássaros com muitas opções de movimento
+            pontos -= 20 * movimentos_possiveis
+            
+            # Penalidade extra por congestionamento neste galho
+            pontos += congestionamento[galho]
+            
+        # 3. Bonificação especial se algum galho puder ser completado imediatamente
+        for galho, passaros in estado.items():
+            if passaros == 'X' or len(passaros) != 3:
+                continue
+                
+            if len(set(passaros)) == 1:  # 3 pássaros iguais
+                pontos -= 300  # Prioridade máxima para completar
+                
+        return pontos
 
     def resolver_com_busca_gulosa(self, tabuleiro):
-        pass
+        """Implementação do algoritmo de busca gulosa com nova heurística"""
+        self.inicia()
+        fila_prioridade = PriorityQueue()
+        contador = itertools.count()
+        visitados = set()
+
+        # Adiciona o estado inicial com a nova heurística
+        fila_prioridade.put((
+            self.heuristica_modular_simples(tabuleiro),
+            next(contador),
+            tabuleiro,
+            []
+        ))
+
+        while not fila_prioridade.empty():
+            _, _, estado_atual, caminho = fila_prioridade.get()
+
+            if verifica_se_ganhou(estado_atual):
+                self.caminho = caminho
+                self.finaliza()
+                return caminho
+
+            estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in estado_atual.items())
+            if estado_tuple in visitados:
+                continue
+            visitados.add(estado_tuple)
+
+            for origem in estado_atual:
+                if not estado_atual[origem] or estado_atual[origem] == 'X':
+                    continue
+
+                for destino in estado_atual:
+                    if origem == destino or estado_atual[destino] == 'X':
+                        continue
+
+                    novo_estado = {k: v.copy() if v != 'X' else 'X' for k, v in estado_atual.items()}
+                    
+                    if verifica_se_pode_voar(novo_estado, origem, destino):
+                        realiza_voo_passaro(novo_estado, origem, destino)
+                        novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
+
+                        if novo_estado_tuple not in visitados:
+                            heuristica = self.heuristica_modular_simples(novo_estado)
+                            fila_prioridade.put((
+                                heuristica,
+                                next(contador),
+                                novo_estado,
+                                caminho + [(origem, destino)]
+                            ))
+
+        return None
 
     def heuristica_prioriza_quase_prontos(self, estado):
         pontos = 0
@@ -313,6 +418,30 @@ class Algoritmo:
                             ))
 
         return None  
+    
+    def heuristica_modular_simples(self, estado):
+        """Heurística modular básica e pouco eficiente"""
+        pontos = 0
+        
+        # 1. Contagem básica de pássaros
+        total_passaros = sum(len(p) for p in estado.values() if p != 'X')
+        
+        # 2. Fator de dispersão (quanto mais dispersos, pior)
+        tipos_por_galho = []
+        for galho, passaros in estado.items():
+            if passaros == 'X':
+                continue
+            tipos_por_galho.append(len(set(passaros)))
+        
+        fator_dispersao = sum(tipos_por_galho)
+        
+        # 3. Galhos vazios (considerados bons)
+        galhos_vazios = sum(1 for p in estado.values() if p != 'X' and not p)
+        
+        # 4. Cálculo simples (quanto menor, melhor)
+        pontos = total_passaros + fator_dispersao - galhos_vazios
+        
+        return pontos
 
     def resolver_com_a_estrela_ponderado(self, tabuleiro):
         pass

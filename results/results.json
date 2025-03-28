@@ -1,0 +1,13 @@
+{
+    "a_star": [
+        {
+            "numero_da_execucao": 1,
+            "tempo_de_execucao": 391.2779700756073,
+            "quantidade_de_caminhos": 32
+        }
+    ],
+    "ucs": [],
+    "dfsi": [],
+    "bfs": [],
+    "dfs": []
+}

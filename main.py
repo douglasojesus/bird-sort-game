@@ -5,18 +5,18 @@ from results.results import *
 
 def main():
     
-    galhos = int(input('Número de galhos (maior que 1): '))
-    while galhos <= 1:
-        galhos = int(input('Número de galhos (maior que 1): '))
+    galhos = int(input('Número de galhos (maior que 1 e menor que 9): '))
+    while galhos <= 1 or galhos >= 9:
+        galhos = int(input('Número de galhos (maior que 1 e menor que 9): '))
 
     escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ").strip().upper()
     while escolha != 'M' and escolha != 'A':
         escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ").strip().upper()    
 
     if escolha == 'M':
-        tabuleiro = define_tabuleiro_manualmente(galhos)
+        tabuleiro = define_tabuleiro_manualmente(galhos+2)
         while tabuleiro == None:
-            tabuleiro = define_tabuleiro_manualmente(galhos)
+            tabuleiro = define_tabuleiro_manualmente(galhos+2)
     else:
         tabuleiro = define_tabuleiro(galhos)
         tabuleiro = popula_tabuleiro(tabuleiro)
@@ -34,7 +34,19 @@ def main():
     modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
     if modo == 'S':
 
-        print("\nResolvendo o jogo com A*...")
+        print("\nResolvendo o jogo com BFS...")
+        bfs = Algoritmo()
+        bfs.resolver_com_bfs(tabuleiro)
+        tempo, qntd_caminhos = bfs.exibe()
+
+        print("\nResolvendo o jogo com Busca Gulosa...")
+        greedy = Algoritmo()
+        greedy.resolver_com_busca_gulosa(tabuleiro)
+        tempo, qntd_caminhos = greedy.exibe()
+
+        
+
+        """print("\nResolvendo o jogo com A*...")
         a_star = Algoritmo()
         a_star.resolver_com_a_estrela(tabuleiro)
         tempo, qntd_caminhos = a_star.exibe()
@@ -69,7 +81,7 @@ def main():
 
         registrar_execucao('bfs', tempo, qntd_caminhos)
 
-        exibir_resultados_comparativos()
+        exibir_resultados_comparativos()"""
     
     else:
         tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()

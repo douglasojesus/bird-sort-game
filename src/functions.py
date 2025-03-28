@@ -17,7 +17,10 @@ def define_tabuleiro_manualmente(qntd_galhos):
         while True:
             galho = input(f"Adicione, entre vírgulas, os pássaros no Galho {i+1} (ex: 1, 1, 2, 1): ")
             try:
-                galho = [int(passaro) for passaro in galho.split(",")]
+                if galho:
+                    galho = [int(passaro) for passaro in galho.split(",")]
+                else:
+                    galho = []
                 
                 if len(galho) > 4:
                     print("Erro: Um galho não pode ter mais de 4 pássaros. Tente novamente.")
@@ -40,9 +43,6 @@ def define_tabuleiro_manualmente(qntd_galhos):
         if is_valid.get(passaro, 0) != 4:
             print(f"Erro: O tipo de pássaro {passaro} não tem exatamente 4 pássaros. Reinicie o processo.")
             return None
-
-    tabuleiro[f"Galho {qntd_galhos + 1}"] = []
-    tabuleiro[f"Galho {qntd_galhos + 2}"] = []
 
     print("\nTabuleiro criado com sucesso:")
     return tabuleiro
