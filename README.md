@@ -292,3 +292,44 @@ def calcular_liberacao(estado):
 | Priorização Grupos | Alta | Finais de jogo | Alto |
 | Modular Simples    | Baixa | Análise inicial | Muito Baixo |
 | Liberação | Média | Situações de bloqueio | Moderado |
+
+# Exemplos
+
+# Instruções de Execução do Bird Sort Game
+
+## 📋 Pré-requisitos
+
+### Para Windows e Linux
+- [Python 3.8+](https://www.python.org/downloads/)
+- [Pip](https://pip.pypa.io/en/stable/installation/) (normalmente vem com Python)
+- [Git](https://git-scm.com/downloads) (opcional, mas recomendado)
+
+## 🛠️ Instalação
+
+### 1. Clonar o repositório
+```bash
+git clone https://github.com/douglasojesus/bird-sort-game.git
+cd bird-sort-game
+```
+
+### 2. Criar ambiente virtual (recomendado)
+- No windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+- No linux:
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+### 3. Instalar dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 4. 🚀 Execução
+```bash
+python main.py
+```
