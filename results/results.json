@@ -23,6 +23,12 @@
             "tempo_de_execucao": 0.0988466739654541,
             "quantidade_de_caminhos": 8,
             "quantidade_de_estados_gerados": 3689
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 1.8184783458709717,
+            "quantidade_de_caminhos": 18,
+            "quantidade_de_estados_gerados": 33016
         }
     ],
     "ucs": [
@@ -49,6 +55,12 @@
             "tempo_de_execucao": 0.004317522048950195,
             "quantidade_de_caminhos": 7,
             "quantidade_de_estados_gerados": 402
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 6.447216033935547,
+            "quantidade_de_caminhos": 14,
+            "quantidade_de_estados_gerados": 261792
         }
     ],
     "dfsi": [
@@ -75,6 +87,12 @@
             "tempo_de_execucao": 0.003264904022216797,
             "quantidade_de_caminhos": 9,
             "quantidade_de_estados_gerados": 2147
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 0.03009033203125,
+            "quantidade_de_caminhos": 18,
+            "quantidade_de_estados_gerados": 24753
         }
     ],
     "bfs": [
@@ -101,6 +119,12 @@
             "tempo_de_execucao": 0.15012097358703613,
             "quantidade_de_caminhos": 7,
             "quantidade_de_estados_gerados": 7444
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 108.23193764686584,
+            "quantidade_de_caminhos": 14,
+            "quantidade_de_estados_gerados": 4548793
         }
     ],
     "dfs": [
@@ -127,6 +151,12 @@
             "tempo_de_execucao": 0.007415294647216797,
             "quantidade_de_caminhos": 150,
             "quantidade_de_estados_gerados": 423
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 0.020294904708862305,
+            "quantidade_de_caminhos": 157,
+            "quantidade_de_estados_gerados": 446
         }
     ],
     "a_star_p": [
@@ -153,6 +183,12 @@
             "tempo_de_execucao": 0.0009624958038330078,
             "quantidade_de_caminhos": 7,
             "quantidade_de_estados_gerados": 81
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 0.008815288543701172,
+            "quantidade_de_caminhos": 18,
+            "quantidade_de_estados_gerados": 369
         }
     ],
     "greedy": [
@@ -179,6 +215,12 @@
             "tempo_de_execucao": 0.09237146377563477,
             "quantidade_de_caminhos": 8,
             "quantidade_de_estados_gerados": 3635
+        },
+        {
+            "numero_da_execucao": 5,
+            "tempo_de_execucao": 2.169377088546753,
+            "quantidade_de_caminhos": 15,
+            "quantidade_de_estados_gerados": 42139
         }
     ]
 }
