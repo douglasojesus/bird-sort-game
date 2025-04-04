@@ -28,7 +28,7 @@ df = pd.DataFrame(df_list)
 
 sns.set(style="whitegrid")
 
-print("Gerando gráfico de dispersão...")
+print("Gerando gráfico de dispersão de estados gerados vs caminhos...")
 # === Gráfico de Dispersão ===
 plt.figure(figsize=(10, 6))
 scatter = sns.scatterplot(
@@ -46,6 +46,26 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "dispersao_estados_vs_caminhos.png"))
 plt.close()
+
+print("Gerando gráfico de dispersão de tempo vs estados gerados...")
+plt.figure(figsize=(10, 6))
+scatter = sns.scatterplot(
+    data=df,
+    x="tempo_de_execucao",
+    y="quantidade_de_estados_gerados",
+    hue="algoritmo",
+    palette="Set2",
+    alpha=0.7
+)
+scatter.set_title("Eficiência: Tempo vs Estados Gerados")
+scatter.set_xlabel("Tempo de Execução (s)")
+scatter.set_ylabel("Quantidade de Estados Gerados")
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "eficiencia_tempo_estados.png"))
+plt.close()
+
+
 
 print("Gerando gráfico de barras do tempo médio de execução...")
 # === Gráfico de Barras: Tempo Médio de Execução ===
