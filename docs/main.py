@@ -93,7 +93,6 @@ plt.savefig(os.path.join(output_dir, "heatmap_correlacao.png"))
 plt.close()
 
 # Criar gráfico comparando heurísticas no tempo de execução
-
 plt.figure(figsize=(10, 6))
 bar = sns.barplot(
     data=df[df["algoritmo"].isin(["a_star", "greedy", "a_star_p"])],  # Filtra heurísticas específicas
@@ -110,7 +109,7 @@ for p in bar.patches:
                   (p.get_x() + p.get_width() / 2, p.get_height()),
                   ha='center', va='bottom', fontsize=10, fontweight='bold')
 
-bar.set_title("Comparação de Heurísticas no Tempo de Execução")
+bar.set_title("Comparação de Algoritmos com Heurísticas no Tempo de Execução")
 bar.set_xlabel("Heurística")
 bar.set_ylabel("Tempo Médio (s)")
 plt.xticks(rotation=45)
