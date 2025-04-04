@@ -252,7 +252,7 @@ class BirdSortGame:
         """Executa o algoritmo em background"""
         tabuleiro_copia = deepcopy(self.tabuleiro)
         solver = Algoritmo()
-        solucao = solver.resolver_com_bfs(tabuleiro_copia) # Inserir qual dos algoritmos deseja que a interface use para resolver automaticamente (Algoritmos presentes na classe "Algoritmo" no arquivo "algorithm.py")
+        solucao = solver.resolver_com_custo_uniforme(tabuleiro_copia) # Inserir qual dos algoritmos deseja que a interface use para resolver automaticamente (Algoritmos presentes na classe "Algoritmo" no arquivo "algorithm.py")
         self.solution_queue.put(solucao)
 
     def executar_movimento_auto(self):
