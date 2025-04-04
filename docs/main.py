@@ -1,15 +1,18 @@
+import os
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Diretório onde os gráficos serão salvos
+output_dir = "splot"
+os.makedirs(output_dir, exist_ok=True)
+
 print("Abrindo os resultados...")
-# Carregue seu JSON aqui (como string ou arquivo)
 with open('../results/results.json', 'r') as f:
     data = json.load(f)
 
 print("Transformando JSON em DataFrame...")
-# Transforma o JSON em DataFrame
 df_list = []
 
 for algoritmo, resultados in data.items():
@@ -24,11 +27,10 @@ for algoritmo, resultados in data.items():
 
 df = pd.DataFrame(df_list)
 
-# Estilo do seaborn
+# Estilo visual
 sns.set(style="whitegrid")
 
 print("Gerando gráfico de dispersão...")
-# === Gráfico de Dispersão ===
 plt.figure(figsize=(10, 6))
 scatter = sns.scatterplot(
     data=df,
@@ -43,10 +45,10 @@ scatter.set_xlabel("Quantidade de Estados Gerados")
 scatter.set_ylabel("Quantidade de Caminhos")
 plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(output_dir, "dispersao_estados_vs_caminhos.png"))
+plt.close()
 
 print("Gerando gráfico de barras do tempo médio de execução...")
-# === Gráfico de Barras: Tempo Médio de Execução ===
 plt.figure(figsize=(10, 6))
 bar1 = sns.barplot(
     data=df,
@@ -61,10 +63,10 @@ bar1.set_ylabel("Tempo Médio (s)")
 bar1.set_xlabel("Algoritmo")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(output_dir, "tempo_medio_execucao.png"))
+plt.close()
 
 print("Gerando gráfico de barras de caminhos médios por algoritmo...")
-# === Gráfico de Barras: Caminhos Médios por Algoritmo ===
 plt.figure(figsize=(10, 6))
 bar2 = sns.barplot(
     data=df,
@@ -79,4 +81,7 @@ bar2.set_ylabel("Média de Caminhos")
 bar2.set_xlabel("Algoritmo")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.show()
+plt.savefig(os.path.join(output_dir, "quantidade_media_caminhos.png"))
+plt.close()
+
+print("Todos os gráficos foram salvos na pasta 'splot'.")
