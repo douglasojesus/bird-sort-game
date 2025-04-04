@@ -65,6 +65,22 @@ plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "eficiencia_tempo_estados.png"))
 plt.close()
 
+print("Gerando gráfico de boxplot da distribuição de tempo de execução...")
+# Analisa a distribuição do tempo de execução para cada algoritmo, ajudando a identificar variações e outliers.
+plt.figure(figsize=(10, 6))
+box = sns.boxplot(
+    data=df,
+    x="algoritmo",
+    y="tempo_de_execucao",
+    palette="pastel"
+)
+box.set_title("Distribuição do Tempo de Execução por Algoritmo")
+box.set_xlabel("Algoritmo")
+box.set_ylabel("Tempo de Execução (s)")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "boxplot_tempo_execucao.png"))
+plt.close()
 
 
 print("Gerando gráfico de barras do tempo médio de execução...")
