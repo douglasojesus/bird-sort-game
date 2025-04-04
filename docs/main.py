@@ -92,7 +92,31 @@ plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "heatmap_correlacao.png"))
 plt.close()
 
+# Criar gráfico comparando heurísticas no tempo de execução
 
+plt.figure(figsize=(10, 6))
+bar = sns.barplot(
+    data=df[df["algoritmo"].isin(["a_star", "greedy", "a_star_p"])],  # Filtra heurísticas específicas
+    x="algoritmo",
+    y="tempo_de_execucao",
+    estimator="mean",
+    ci="sd",
+    palette="coolwarm"
+)
+
+# Adicionando valores no topo das barras
+for p in bar.patches:
+    bar.annotate(f'{p.get_height():.3f}',
+                  (p.get_x() + p.get_width() / 2, p.get_height()),
+                  ha='center', va='bottom', fontsize=10, fontweight='bold')
+
+bar.set_title("Comparação de Heurísticas no Tempo de Execução")
+bar.set_xlabel("Heurística")
+bar.set_ylabel("Tempo Médio (s)")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "comparacao_heuristicas.png"))
+plt.close()
 
 print("Gerando gráfico de barras do tempo médio de execução...")
 # === Gráfico de Barras: Tempo Médio de Execução ===
