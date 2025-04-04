@@ -1,10 +1,10 @@
-import os
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
-# Diretório onde os gráficos serão salvos
+# Criar o diretório splot caso não exista
 output_dir = "splot"
 os.makedirs(output_dir, exist_ok=True)
 
@@ -14,7 +14,6 @@ with open('../results/results.json', 'r') as f:
 
 print("Transformando JSON em DataFrame...")
 df_list = []
-
 for algoritmo, resultados in data.items():
     for resultado in resultados:
         df_list.append({
@@ -27,10 +26,10 @@ for algoritmo, resultados in data.items():
 
 df = pd.DataFrame(df_list)
 
-# Estilo visual
 sns.set(style="whitegrid")
 
 print("Gerando gráfico de dispersão...")
+# === Gráfico de Dispersão ===
 plt.figure(figsize=(10, 6))
 scatter = sns.scatterplot(
     data=df,
@@ -49,6 +48,7 @@ plt.savefig(os.path.join(output_dir, "dispersao_estados_vs_caminhos.png"))
 plt.close()
 
 print("Gerando gráfico de barras do tempo médio de execução...")
+# === Gráfico de Barras: Tempo Médio de Execução ===
 plt.figure(figsize=(10, 6))
 bar1 = sns.barplot(
     data=df,
@@ -58,6 +58,13 @@ bar1 = sns.barplot(
     ci="sd",
     palette="Set3"
 )
+
+# Adicionando valores no topo das barras
+for p in bar1.patches:
+    bar1.annotate(f'{p.get_height():.3f}',
+                  (p.get_x() + p.get_width() / 2, p.get_height()),
+                  ha='center', va='bottom', fontsize=10, fontweight='bold')
+
 bar1.set_title("Tempo Médio de Execução por Algoritmo")
 bar1.set_ylabel("Tempo Médio (s)")
 bar1.set_xlabel("Algoritmo")
@@ -67,6 +74,7 @@ plt.savefig(os.path.join(output_dir, "tempo_medio_execucao.png"))
 plt.close()
 
 print("Gerando gráfico de barras de caminhos médios por algoritmo...")
+# === Gráfico de Barras: Caminhos Médios por Algoritmo ===
 plt.figure(figsize=(10, 6))
 bar2 = sns.barplot(
     data=df,
@@ -76,12 +84,19 @@ bar2 = sns.barplot(
     ci="sd",
     palette="Set1"
 )
+
+# Adicionando valores no topo das barras
+for p in bar2.patches:
+    bar2.annotate(f'{p.get_height():.1f}',
+                  (p.get_x() + p.get_width() / 2, p.get_height()),
+                  ha='center', va='bottom', fontsize=10, fontweight='bold')
+
 bar2.set_title("Quantidade Média de Caminhos por Algoritmo")
 bar2.set_ylabel("Média de Caminhos")
 bar2.set_xlabel("Algoritmo")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig(os.path.join(output_dir, "quantidade_media_caminhos.png"))
+plt.savefig(os.path.join(output_dir, "caminhos_medios_por_algoritmo.png"))
 plt.close()
 
-print("Todos os gráficos foram salvos na pasta 'splot'.")
+print("Gráficos salvos no diretório 'splot'.")
