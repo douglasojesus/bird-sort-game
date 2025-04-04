@@ -119,5 +119,74 @@ def main():
 
                 exibe_tabuleiro(tabuleiro)
 
+def gera_execucao_de_solucao_automatica_para_registro(galhos, numero_de_execucoes):
+    for i in range(numero_de_execucoes):
+        print("Execução número", i+1)
+        tabuleiro = define_tabuleiro(galhos)
+        tabuleiro = popula_tabuleiro(tabuleiro)
+        exibe_tabuleiro(tabuleiro)
+
+        possiveis_escolhas_origem_destino = {}
+        for i in range(galhos+2):
+            possiveis_escolhas_origem_destino[i+1] = 'Galho '+str(i+1)
+
+        if verifica_se_tabuleiro_esta_completo(tabuleiro):
+            print("Tabuleiro já está solucionado! Parabéns, não precisou fazer nada.")
+            return
+
+        print("\nResolvendo o jogo com BFS...")
+        bfs = Algoritmo()
+        bfs.resolver_com_bfs(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = bfs.exibe()
+
+        registrar_execucao('bfs', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com Busca Gulosa...")
+        greedy = Algoritmo()
+        greedy.resolver_com_busca_gulosa(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = greedy.exibe()
+
+        registrar_execucao('greedy', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com A estrela Ponderada...")
+        a_star_p = Algoritmo()
+        a_star_p.resolver_com_a_estrela_ponderado(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = a_star_p.exibe()
+
+        registrar_execucao('a_star_p', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com A*...")
+        a_star = Algoritmo()
+        a_star.resolver_com_a_estrela(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = a_star.exibe()
+
+        registrar_execucao('a_star', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com Custo Uniforme...")
+        ucs = Algoritmo()
+        ucs.resolver_com_custo_uniforme(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = ucs.exibe()
+
+        registrar_execucao('ucs', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com DFS...")
+        dfs = Algoritmo()
+        dfs.resolver_com_dfs(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = dfs.exibe()
+
+        registrar_execucao('dfs', tempo, qntd_caminhos, estados_gerados)
+
+        print("\nResolvendo o jogo com DFS Iterarivo...")
+        dfsi = Algoritmo()
+        dfsi.resolver_com_interatividade(tabuleiro)
+        tempo, qntd_caminhos, estados_gerados = dfsi.exibe()
+
+        registrar_execucao('dfsi', tempo, qntd_caminhos, estados_gerados)
+
+        exibir_resultados_comparativos()
+
+
 if __name__ == '__main__':
+    #gera_execucao_de_solucao_automatica_para_registro(4, 1)
     main()
+
