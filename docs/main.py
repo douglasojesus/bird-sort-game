@@ -82,6 +82,17 @@ plt.tight_layout()
 plt.savefig(os.path.join(output_dir, "boxplot_tempo_execucao.png"))
 plt.close()
 
+print("Gerando gráfico de Heatmap de Correlação entre Variáveis")
+# Se há alguma relação forte entre os parâmetros como tempo de execução, estados gerados e quantidade de caminhos.
+plt.figure(figsize=(8, 6))
+corr_matrix = df[["tempo_de_execucao", "quantidade_de_estados_gerados", "quantidade_de_caminhos"]].corr()
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
+plt.title("Correlação entre Variáveis")
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "heatmap_correlacao.png"))
+plt.close()
+
+
 
 print("Gerando gráfico de barras do tempo médio de execução...")
 # === Gráfico de Barras: Tempo Médio de Execução ===
