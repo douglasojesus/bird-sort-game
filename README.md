@@ -90,28 +90,6 @@ Cada algoritmo tem características distintas na forma de explorar o espaço de 
 - Prioriza formação de grupos completos de pássaros
 - Adequado quando diferentes movimentos têm importância estratégica distinta
 
-## 4. Busca de Custo Uniforme (UCS)
-
-### Funcionamento
-- Versão generalizada do BFS que considera custos variáveis por movimento
-- Utiliza **fila de prioridade** para expandir sempre o nó com menor custo acumulado
-- Implementa critérios estratégicos específicos para o Bird Sort
-
-### Critérios de Custo
-1. **Prioridade Máxima (0.001)**: Completar grupos de 4 pássaros iguais
-2. **Alta Prioridade (0.1)**: Formar grupos de 3 pássaros iguais
-3. **Prioridade Média (0.5)**: Movimentos para galhos vazios
-4. **Penalidade (10.0)**: Movimentos não estratégicos
-
-### Características
-- **Completo** e **Ótimo**: Encontra a solução de menor custo total
-- **Complexidade**: O(b^(1+C/ε)) onde C é o custo da solução ótima
-
-### Aplicação
-- Produz soluções mais inteligentes que BFS/DFS
-- Prioriza formação de grupos completos de pássaros
-- Adequado quando diferentes movimentos têm importância estratégica distinta
-
 ## 5. Algoritmo A*
 
 ### Funcionamento
@@ -293,7 +271,77 @@ def calcular_liberacao(estado):
 | Modular Simples    | Baixa | Análise inicial | Muito Baixo |
 | Liberação | Média | Situações de bloqueio | Moderado |
 
-# Exemplos
+# Resultados e Análise de Desempenho dos Algoritmos
+
+## Gráficos e Interpretações
+
+### 1. Dispersão: Estados Gerados vs Caminhos
+![Dispersão Estados vs Caminhos](docs/splot/dispersao_estados_vs_caminhos.png)  
+**O que mostra**:  
+- Relação entre quantidade de estados explorados e caminhos analisados  
+- Algoritmos no canto superior direito (BFS/UCS) são menos eficientes  
+- A* Ponderado aparece mais concentrado (mais consistente)
+
+---
+
+### 2. Eficiência: Tempo vs Estados Gerados
+![Tempo vs Estados](docs/splot/eficiencia_tempo_estados.png)  
+**Insights**:  
+- Correlação clara: mais estados = mais tempo de execução  
+- BFS/UCS no canto superior direito (piores desempenhos)  
+- A* Ponderado no canto inferior esquerdo (melhor eficiência)
+
+---
+
+### 3. Distribuição do Tempo de Execução
+![Boxplot Tempo](docs/splot/boxplot_tempo_execucao.png)  
+**Destaques**:  
+- BFS/UCS com maior variação e outliers extremos  
+- Heurísticas (A*/Greedy) com distribuição mais compacta  
+- DFS apresenta alguns picos de tempo
+
+---
+
+### 4. Correlação entre Variáveis
+![Heatmap Correlação](docs/splot/heatmap_correlacao.png)  
+**Principais correlações**:  
+- Tempo e Estados Gerados: >0.8 (forte)  
+- Caminhos e Estados: ~0.6 (moderada)  
+- Tempo e Caminhos: ~0.5 (fraca)
+
+---
+
+### 5. Comparação de Heurísticas
+![Comparação Heurísticas](docs/splot/comparacao_heuristicas.png)  
+**Resultados**:  
+1. A* Ponderado: mais rápido (0.01s médio)  
+2. A*: intermediário (0.25s)  
+3. Greedy: variável (0.35s)
+
+---
+
+### 6. Tempo Médio por Algoritmo
+![Tempo Médio](docs/splot/tempo_medio_execucao.png)  
+**Ranking**:  
+- Piores: BFS (25s) e UCS (3.5s)  
+- Melhores: DFS (0.005s) e A* Ponderado (0.01s)  
+- Intermediários: DFSi (0.02s), A* (0.25s)
+
+---
+
+### 7. Caminhos Médios Explorados
+![Caminhos Médios](docs/splot/caminhos_medios_por_algoritmo.png)  
+**Observações**:  
+- DFS explora mais caminhos (média alta)  
+- Heurísticas reduzem caminhos não ótimos  
+- BFS/UCS mantêm equilíbrio na exploração
+
+## Conclusões Gerais
+✅ **A* Ponderado** apresenta melhor equilíbrio entre tempo e qualidade  
+⚠️ **Greedy** pode ser rápido, mas menos consistente  
+⏳ **BFS/UCS** garantem otimalidade com alto custo computacional  
+⚡ **DFS/DFSi** são rápidos, mas arriscados para problemas complexos
+
 
 # Instruções de Execução do Bird Sort Game
 
