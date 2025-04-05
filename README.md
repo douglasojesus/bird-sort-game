@@ -278,8 +278,9 @@ def calcular_liberacao(estado):
 ### 1. Dispersão: Estados Gerados vs Caminhos
 ![Dispersão Estados vs Caminhos](docs/splot/dispersao_estados_vs_caminhos.png)  
 **O que mostra**:  
-- Relação entre quantidade de estados explorados e caminhos analisados  
-- Algoritmos no canto superior direito (BFS/UCS) são menos eficientes  
+- Relação entre quantidade de estados explorados e caminhos para o resultado
+- BFS demonstra ser menos eficiente por precisar explorar mais estados
+- DFS tem menos estados gerados, mas o caminho do resultado apresenta ser maior
 - A* Ponderado aparece mais concentrado (mais consistente)
 
 ---
@@ -288,8 +289,8 @@ def calcular_liberacao(estado):
 ![Tempo vs Estados](docs/splot/eficiencia_tempo_estados.png)  
 **Insights**:  
 - Correlação clara: mais estados = mais tempo de execução  
-- BFS/UCS no canto superior direito (piores desempenhos)  
-- A* Ponderado no canto inferior esquerdo (melhor eficiência)
+- BFS/UCS seguindo para o canto superior direito (piores desempenhos)  
+- Os outros algoritmos estão mais presentes no canto inferior esquerdo (melhor eficiência)
 
 ---
 
@@ -298,34 +299,30 @@ def calcular_liberacao(estado):
 **Destaques**:  
 - BFS/UCS com maior variação e outliers extremos  
 - Heurísticas (A*/Greedy) com distribuição mais compacta  
-- DFS apresenta alguns picos de tempo
 
 ---
 
 ### 4. Correlação entre Variáveis
 ![Heatmap Correlação](docs/splot/heatmap_correlacao.png)  
 **Principais correlações**:  
-- Tempo e Estados Gerados: >0.8 (forte)  
-- Caminhos e Estados: ~0.6 (moderada)  
-- Tempo e Caminhos: ~0.5 (fraca)
+- Tempo e Estados Gerados: 0.99 (forte)  
 
 ---
 
-### 5. Comparação de Heurísticas
+### 5. Comparação de Algoritmos com Heurísticas no Tempo de Execução
 ![Comparação Heurísticas](docs/splot/comparacao_heuristicas.png)  
 **Resultados**:  
-1. A* Ponderado: mais rápido (0.01s médio)  
-2. A*: intermediário (0.25s)  
-3. Greedy: variável (0.35s)
+1. A* Ponderado: mais rápido (0.004s médio)  
+2. A*: intermediário (0.377s)  
+3. Greedy: intermediário (0.423s)
 
 ---
 
 ### 6. Tempo Médio por Algoritmo
 ![Tempo Médio](docs/splot/tempo_medio_execucao.png)  
 **Ranking**:  
-- Piores: BFS (25s) e UCS (3.5s)  
-- Melhores: DFS (0.005s) e A* Ponderado (0.01s)  
-- Intermediários: DFSi (0.02s), A* (0.25s)
+- Piores: BFS (~15s) e UCS (~1.5s)  
+- Melhores: DFS (0.007s) e A* Ponderado (0.004s)  
 
 ---
 
@@ -333,8 +330,6 @@ def calcular_liberacao(estado):
 ![Caminhos Médios](docs/splot/caminhos_medios_por_algoritmo.png)  
 **Observações**:  
 - DFS explora mais caminhos (média alta)  
-- Heurísticas reduzem caminhos não ótimos  
-- BFS/UCS mantêm equilíbrio na exploração
 
 ## Conclusões Gerais
 ✅ **A* Ponderado** apresenta melhor equilíbrio entre tempo e qualidade  
