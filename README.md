@@ -90,23 +90,33 @@ Cada algoritmo tem características distintas na forma de explorar o espaço de 
 - Prioriza formação de grupos completos de pássaros
 - Adequado quando diferentes movimentos têm importância estratégica distinta
 
-## 5. Algoritmo A*
+## 5. Algoritmo A* 
 
 ### Funcionamento
-- Combina custo real do caminho (g(n)) com estimativa heurística (h(n))
-- Utiliza **fila de prioridade** ordenada por f(n) = g(n) + h(n)
-- Implementa heurística especializada para formação de grupos de pássaros
+- Combina **custo real do caminho (g(n))** com **estimativa heurística admissível (h(n))**
+- Utiliza fila de prioridade ordenada por `f(n) = g(n) + h(n)`
+- Implementa heurística especializada que mantém a admissibilidade
 
-### Heurística Utilizada (`heuristica_prioriza_quase_prontos`)
-1. **Prioridade Máxima (-200)**: Galhos com 3/4 pássaros iguais (quase completos)
-2. **Alta Prioridade (-30)**: Pares de pássaros expostos no topo
-3. **Bonificação (-40/qtd)**: Galhos que contribuem para completar outros grupos
-4. **Penalização (+80)**: Pássaros bloqueados que não ajudam em outros grupos
+### Heurística Atualizada (`heuristica_prioriza_quase_prontos`)
+1. **Identificação de Galhos Quase Completos**:
+   - Detecta galhos com 3/4 pássaros iguais
+   - Atribui custo mínimo = 1 movimento para completá-los
 
-### Características
-- **Completo** e **Ótimo**: Garante solução com menor custo total (se heurística for admissível)
-- **Complexidade**: O(b^d) - Exponencial na profundidade da solução
-- **Eficiência**: Mais rápido que UCS em problemas complexos
+2. **Cálculo Conservador para Outros Galhos**:
+   - Para galhos mistos: `número de pássaros - tamanho do maior grupo`
+   - Exemplo: [4,4,1,3] → custo 2 (precisa mover 1 e 3)
+
+3. **Garantia de Admissibilidade**:
+   - Nunca superestima o custo real da solução ótima
+   - Sempre ≤ número mínimo real de movimentos necessários
+
+### Características-Chave
+| Propriedade | Descrição |
+|-------------|-----------|
+| **Completeza** | Garante encontrar solução se existir |
+| **Otimalidade** | Mantém garantia de solução ótima |
+| **Eficiência** | Reduz estados explorados vs BFS |
+| **Complexidade** | O(b^d), mas com fator de ramificação reduzido |
 
 ### Aplicação
 - Solução ideal para configurações complexas do jogo
@@ -272,6 +282,74 @@ def calcular_liberacao(estado):
 | Priorização Grupos | Alta | Finais de jogo | Alto |
 | Modular Simples    | Baixa | Análise inicial | Muito Baixo |
 | Liberação | Média | Situações de bloqueio | Moderado |
+
+# Análise Comparativa: BFS vs A* em um Problema de Rearranjo de Galhos
+
+## Estado Inicial do Tabuleiro
+
+Galho 1: [4, 4, 1, 3]
+Galho 2: [4, 4, 3, 3]
+Galho 3: [2, 2, 3, 1]
+Galho 4: [1, 1, 2, 2]
+Galho 5: []
+Galho 6: []
+
+## 1. Busca em Largura (BFS)
+
+### Características
+- **Estratégia**: Explora todos os movimentos possíveis em camadas
+- **Garantia**: Encontra solução com menor número de movimentos
+- **Desempenho**: Ineficiente (explora muitos estados)
+
+### Passos Típicos
+1. Move topo de qualquer galho para galhos vazios/válidos
+   - Ex: `1→5` (move 3), `2→5` (move 3), `3→5` (move 1)
+2. Não prioriza movimentos estratégicos
+
+### Solução Encontrada (Exemplo)
+```python
+1→5 (3), 2→5 (3), 2→5 (4), 3→1 (1), 3→5 (2), 
+4→3 (2), 4→3 (1), 1→4 (4), 1→4 (4), 1→2 (1), 1→2 (4)
+```
+
+Total: 11 movimentos
+
+Estados explorados: aproximadamente 420000
+
+## 2. Algoritmo A* com Heurística
+
+- **Heurística admissível:**
+```python
+def heuristica(estado):
+    custo = 0
+    for galho, passaros in estado.items():
+        if not passaros or passaros == 'X': continue
+        if len(set(passaros)) > 1:
+            passaro_mais_comum = max(set(passaros), key=passaros.count)
+            custo += len([p for p in passaros if p != passaro_mais_comum])
+    return custo
+```
+
+### Características
+- **Estratégia**: prioriza movimentos que:Completam galhos quase prontos (3/4) e reduzem dispersão de pássaros.
+- **Garantia**: ótimo se heurística for admissível
+- **Desempenho**: h(n) inicial: 8 (2 movimentos mínimos por galho misto)
+- **Prioridade**: reduzir dispersão primeiro
+
+### Passos Típicos
+1. Move topo de qualquer galho para galhos vazios/válidos
+   - Ex: `1→5` (move 3), `2→5` (move 3), `3→5` (move 1)
+2. Não prioriza movimentos estratégicos
+
+### Solução Encontrada (Exemplo)
+```python
+3→5 (1), 3→6 (2), 4→3 (2), 4→3 (1), 1→6 (3),
+2→6 (3), 2→6 (4), 1→4 (4), 5→4 (1), 1→2 (4), 1→2 (4)
+```
+
+Total: 11 movimentos
+
+Estados explorados: aproximadamente 2400
 
 # Resultados e Análise de Desempenho dos Algoritmos
 

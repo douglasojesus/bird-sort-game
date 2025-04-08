@@ -310,7 +310,7 @@ class Algoritmo:
         
         return movimentos_minimos
     
-    def heuristica_quase_completo_admissivel(self, estado):
+    def heuristica_prioriza_quase_prontos(self, estado):
         """Heurística que prioriza galhos 3/4 sem perder admissibilidade"""
         custo_estimado = 0
         
@@ -347,7 +347,7 @@ class Algoritmo:
         self.inicia()
         fila_prioridade = PriorityQueue()
         contador = itertools.count()
-        fila_prioridade.put((0 + self.heuristica_quase_completo_admissivel(tabuleiro), next(contador), tabuleiro, [], 0))
+        fila_prioridade.put((0 + self.heuristica_prioriza_quase_prontos(tabuleiro), next(contador), tabuleiro, [], 0))
         visitados = set()
 
         while not fila_prioridade.empty():
@@ -379,7 +379,7 @@ class Algoritmo:
 
                         if novo_estado_tuple not in visitados:
                             novo_custo = custo_acumulado + 1
-                            prioridade = novo_custo + self.heuristica_quase_completo_admissivel(novo_estado)
+                            prioridade = novo_custo + self.heuristica_prioriza_quase_prontos(novo_estado)
                             fila_prioridade.put((
                                 prioridade,
                                 next(contador),
