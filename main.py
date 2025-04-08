@@ -41,19 +41,19 @@ def main():
 
         registrar_execucao('bfs', tempo, qntd_caminhos, estados_gerados)
 
-        """print("\nResolvendo o jogo com Busca Gulosa...")
+        print("\nResolvendo o jogo com Busca Gulosa...")
         greedy = Algoritmo()
         greedy.resolver_com_busca_gulosa(tabuleiro)
         tempo, qntd_caminhos, estados_gerados = greedy.exibe()
 
-        registrar_execucao('greedy', tempo, qntd_caminhos, estados_gerados)"""
+        registrar_execucao('greedy', tempo, qntd_caminhos, estados_gerados)
 
-        """print("\nResolvendo o jogo com A estrela Ponderada...")
+        print("\nResolvendo o jogo com A estrela Ponderada...")
         a_star_p = Algoritmo()
         a_star_p.resolver_com_a_estrela_ponderado(tabuleiro)
         tempo, qntd_caminhos, estados_gerados = a_star_p.exibe()
 
-        registrar_execucao('a_star_p', tempo, qntd_caminhos, estados_gerados)"""
+        registrar_execucao('a_star_p', tempo, qntd_caminhos, estados_gerados)
 
         print("\nResolvendo o jogo com A*...")
         a_star = Algoritmo()
@@ -69,7 +69,7 @@ def main():
 
         registrar_execucao('ucs', tempo, qntd_caminhos, estados_gerados)
 
-        """print("\nResolvendo o jogo com DFS...")
+        print("\nResolvendo o jogo com DFS...")
         dfs = Algoritmo()
         dfs.resolver_com_dfs(tabuleiro)
         tempo, qntd_caminhos, estados_gerados = dfs.exibe()
@@ -83,7 +83,7 @@ def main():
 
         registrar_execucao('dfsi', tempo, qntd_caminhos, estados_gerados)
 
-        exibir_resultados_comparativos()"""
+        exibir_resultados_comparativos()
     
     else:
         tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()
@@ -187,6 +187,6 @@ def gera_execucao_de_solucao_automatica_para_registro(galhos, numero_de_execucoe
 
 
 if __name__ == '__main__':
-    #gera_execucao_de_solucao_automatica_para_registro(4, 1)
+    #gera_execucao_de_solucao_automatica_para_registro(4, 20)
     main()
 
