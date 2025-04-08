@@ -202,6 +202,8 @@ Cada algoritmo apresenta vantagens específicas, e a escolha final deve consider
 
 # Análise de Heurísticas para o Bird Sort
 
+Embora a heurística heurística_modular_simples apresente um resultado melhor em comparação com outras heurísticas, ela, ainda assim, não é ótima, ou seja, a heurística é não admissível (em algum momento superestima o custo real para alcançar o objetivo).
+
 ## 🔍 Heurística de Priorização de Grupos
 **Método:** `heuristica_prioriza_quase_prontos()`  
 **Algoritmo:** A* clássico
@@ -233,7 +235,7 @@ def calcular_heuristica(estado):
 
 ## 📐 Heurística Modular Simples
 **Método:** `heuristica_modular_simples()`  
-**Algoritmo:** A* Ponderado e Busca Gulosa
+**Algoritmo:** A* Ponderado 
 
 ### 📈 Fórmula Básica
 ```python
@@ -247,7 +249,7 @@ def heuristica_simples(estado):
 
 ## 🧩 Heurística de Liberação
 **Método:** `calcular_heuristica_liberacao()`  
-**Algoritmo:** A* Ponderado e Busca Gulosa
+**Algoritmo:** Busca Gulosa
 
 ### 🔧 Mecânica Principal
 ```python

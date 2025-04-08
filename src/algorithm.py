@@ -140,7 +140,7 @@ class Algoritmo:
         self.inicia()
         fila_prioridade = PriorityQueue()
         contador = itertools.count()
-        fila_prioridade.put((0, next(contador), tabuleiro, []))
+        fila_prioridade.put((0, next(contador), tabuleiro, []))  # (custo, id, estado, caminho)
         visitados = set()
 
         while not fila_prioridade.empty():
@@ -152,13 +152,13 @@ class Algoritmo:
                 return caminho
 
             estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in estado_atual.items())
+            if estado_tuple in visitados:
+                continue
             visitados.add(estado_tuple)
 
             for origem in estado_atual:
                 if not estado_atual[origem] or estado_atual[origem] == 'X':
                     continue
-
-                passaro = estado_atual[origem][-1]
 
                 for destino in estado_atual:
                     if origem == destino or estado_atual[destino] == 'X':
@@ -167,30 +167,18 @@ class Algoritmo:
                     novo_estado = {k: v.copy() if v != 'X' else 'X' for k, v in estado_atual.items()}
                     
                     if verifica_se_pode_voar(novo_estado, origem, destino):
-                        # Hierarquia de prioridades
-                        if estado_atual[destino] and estado_atual[destino][-1] == passaro:
-                            qtd_iguais = estado_atual[destino].count(passaro)
-                            if qtd_iguais >= 2:
-                                custo_movimento = 0.001  # Prioridade absoluta para completar grupos
-                            else:
-                                custo_movimento = 0.1    # Prioridade alta para iniciar grupos
-                        elif not estado_atual[destino]:
-                            custo_movimento = 0.5        # Prioridade média para galhos vazios
-                        else:
-                            custo_movimento = 10.0       # Penalidade alta para movimentos não estratégicos
-
                         realiza_voo_passaro(novo_estado, origem, destino)
                         novo_estado_tuple = tuple((k, tuple(v) if v != 'X' else 'X') for k, v in novo_estado.items())
                         
                         if novo_estado_tuple not in visitados:
+                            # Custo fixo de 1 por movimento
                             fila_prioridade.put((
-                                custo_acumulado + custo_movimento,
+                                custo_acumulado + 1,
                                 next(contador),
                                 novo_estado,
                                 caminho + [(origem, destino)]
                             ))
                             self.estados_gerados += 1
-
         return None
     
     def calcular_heuristica_liberacao(self, estado):

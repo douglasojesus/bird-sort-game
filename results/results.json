@@ -599,6 +599,168 @@
             "tempo_de_execucao": 1.360461950302124,
             "quantidade_de_caminhos": 14,
             "quantidade_de_estados_gerados": 19791
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 0.6379446983337402,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 102,
+            "tempo_de_execucao": 10.993952512741089,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 103,
+            "tempo_de_execucao": 9.019880056381226,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 104,
+            "tempo_de_execucao": 5.920083045959473,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 105,
+            "tempo_de_execucao": 0.6432926654815674,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 106,
+            "tempo_de_execucao": 0.650799036026001,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 107,
+            "tempo_de_execucao": 0.6360626220703125,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 108,
+            "tempo_de_execucao": 0.6285769939422607,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19739
+        },
+        {
+            "numero_da_execucao": 109,
+            "tempo_de_execucao": 0.4400010108947754,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 14967
+        },
+        {
+            "numero_da_execucao": 110,
+            "tempo_de_execucao": 0.6471354961395264,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 111,
+            "tempo_de_execucao": 0.6430275440216064,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 112,
+            "tempo_de_execucao": 2.368173837661743,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 113,
+            "tempo_de_execucao": 2.3583948612213135,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 114,
+            "tempo_de_execucao": 0,
+            "quantidade_de_caminhos": 0,
+            "quantidade_de_estados_gerados": 0
+        },
+        {
+            "numero_da_execucao": 115,
+            "tempo_de_execucao": 2.1519954204559326,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 116,
+            "tempo_de_execucao": 0.6328842639923096,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 117,
+            "tempo_de_execucao": 0.5214252471923828,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 17386
+        },
+        {
+            "numero_da_execucao": 118,
+            "tempo_de_execucao": 0.0033893585205078125,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 114
+        },
+        {
+            "numero_da_execucao": 119,
+            "tempo_de_execucao": 0.5477828979492188,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 17406
+        },
+        {
+            "numero_da_execucao": 120,
+            "tempo_de_execucao": 0.6317410469055176,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 121,
+            "tempo_de_execucao": 0.7053718566894531,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 122,
+            "tempo_de_execucao": 0.0031533241271972656,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 114
+        },
+        {
+            "numero_da_execucao": 123,
+            "tempo_de_execucao": 0.721142053604126,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 21361
+        },
+        {
+            "numero_da_execucao": 124,
+            "tempo_de_execucao": 0.1327669620513916,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 5162
+        },
+        {
+            "numero_da_execucao": 125,
+            "tempo_de_execucao": 0.08962345123291016,
+            "quantidade_de_caminhos": 8,
+            "quantidade_de_estados_gerados": 3133
+        },
+        {
+            "numero_da_execucao": 126,
+            "tempo_de_execucao": 0.4737563133239746,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 14353
+        },
+        {
+            "numero_da_execucao": 127,
+            "tempo_de_execucao": 0.46181583404541016,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 14353
         }
     ],
     "ucs": [
@@ -1201,6 +1363,36 @@
             "tempo_de_execucao": 3.1118857860565186,
             "quantidade_de_caminhos": 13,
             "quantidade_de_estados_gerados": 131254
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 0.13446736335754395,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 10407
+        },
+        {
+            "numero_da_execucao": 102,
+            "tempo_de_execucao": 0.002038240432739258,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 211
+        },
+        {
+            "numero_da_execucao": 103,
+            "tempo_de_execucao": 0.014423608779907227,
+            "quantidade_de_caminhos": 7,
+            "quantidade_de_estados_gerados": 817
+        },
+        {
+            "numero_da_execucao": 104,
+            "tempo_de_execucao": 0.02329230308532715,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 2177
+        },
+        {
+            "numero_da_execucao": 105,
+            "tempo_de_execucao": 0.12545204162597656,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 5501
         }
     ],
     "dfsi": [
@@ -1803,6 +1995,12 @@
             "tempo_de_execucao": 0.04299211502075195,
             "quantidade_de_caminhos": 16,
             "quantidade_de_estados_gerados": 26460
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 0.02704143524169922,
+            "quantidade_de_caminhos": 13,
+            "quantidade_de_estados_gerados": 9982
         }
     ],
     "bfs": [
@@ -2405,6 +2603,36 @@
             "tempo_de_execucao": 22.90834331512451,
             "quantidade_de_caminhos": 13,
             "quantidade_de_estados_gerados": 746306
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 5.047512531280518,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 201342
+        },
+        {
+            "numero_da_execucao": 102,
+            "tempo_de_execucao": 1.243760585784912,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 62136
+        },
+        {
+            "numero_da_execucao": 103,
+            "tempo_de_execucao": 0.15730714797973633,
+            "quantidade_de_caminhos": 7,
+            "quantidade_de_estados_gerados": 8390
+        },
+        {
+            "numero_da_execucao": 104,
+            "tempo_de_execucao": 11.079167604446411,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 450956
+        },
+        {
+            "numero_da_execucao": 105,
+            "tempo_de_execucao": 13.221182823181152,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 450956
         }
     ],
     "dfs": [
@@ -3007,6 +3235,12 @@
             "tempo_de_execucao": 0.01110386848449707,
             "quantidade_de_caminhos": 177,
             "quantidade_de_estados_gerados": 483
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 0.007325649261474609,
+            "quantidade_de_caminhos": 116,
+            "quantidade_de_estados_gerados": 364
         }
     ],
     "a_star_p": [
@@ -3609,6 +3843,168 @@
             "tempo_de_execucao": 0.010933637619018555,
             "quantidade_de_caminhos": 14,
             "quantidade_de_estados_gerados": 282
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 0.0020093917846679688,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 102,
+            "tempo_de_execucao": 0.0026102066040039062,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 103,
+            "tempo_de_execucao": 0.0054056644439697266,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 104,
+            "tempo_de_execucao": 0.0032529830932617188,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 105,
+            "tempo_de_execucao": 0.0032651424407958984,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 106,
+            "tempo_de_execucao": 0.004033565521240234,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 107,
+            "tempo_de_execucao": 0.003190755844116211,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 108,
+            "tempo_de_execucao": 0.003069162368774414,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 109,
+            "tempo_de_execucao": 0.0045735836029052734,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 110,
+            "tempo_de_execucao": 0.0030574798583984375,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 111,
+            "tempo_de_execucao": 0.0043392181396484375,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 112,
+            "tempo_de_execucao": 0.003091573715209961,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 113,
+            "tempo_de_execucao": 0.004429817199707031,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 114,
+            "tempo_de_execucao": 0.004050254821777344,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 115,
+            "tempo_de_execucao": 0.0033888816833496094,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 116,
+            "tempo_de_execucao": 0.00450587272644043,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 117,
+            "tempo_de_execucao": 0.0044825077056884766,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 118,
+            "tempo_de_execucao": 0.004059791564941406,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 119,
+            "tempo_de_execucao": 0.0044138431549072266,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 120,
+            "tempo_de_execucao": 0.004429340362548828,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 121,
+            "tempo_de_execucao": 0.004388093948364258,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 122,
+            "tempo_de_execucao": 0.003367900848388672,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 123,
+            "tempo_de_execucao": 0.002643585205078125,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 124,
+            "tempo_de_execucao": 0.003992795944213867,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 125,
+            "tempo_de_execucao": 0.6660289764404297,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 19737
+        },
+        {
+            "numero_da_execucao": 126,
+            "tempo_de_execucao": 0.0038297176361083984,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
+        },
+        {
+            "numero_da_execucao": 127,
+            "tempo_de_execucao": 0.015483856201171875,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 103
         }
     ],
     "greedy": [
@@ -4211,6 +4607,12 @@
             "tempo_de_execucao": 1.4896509647369385,
             "quantidade_de_caminhos": 15,
             "quantidade_de_estados_gerados": 21024
+        },
+        {
+            "numero_da_execucao": 101,
+            "tempo_de_execucao": 0.697852373123169,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 21329
         }
     ]
 }
