@@ -309,12 +309,45 @@ class Algoritmo:
                 movimentos_minimos += len([p for p in passaros if p != tipo_maioritario])
         
         return movimentos_minimos
+    
+    def heuristica_quase_completo_admissivel(self, estado):
+        """Heurística que prioriza galhos 3/4 sem perder admissibilidade"""
+        custo_estimado = 0
+        
+        # 1. Identificar galhos quase completos (3/4)
+        galhos_quase_prontos = []
+        for galho, passaros in estado.items():
+            if passaros == 'X' or len(passaros) < 3:
+                continue
+            passaro_mais_comum = max(set(passaros), key=passaros.count)
+            if passaros.count(passaro_mais_comum) == 3:
+                galhos_quase_prontos.append((galho, passaro_mais_comum))
+        
+        # 2. Cálculo conservador do custo mínimo
+        for galho, passaros in estado.items():
+            if passaros == 'X' or not passaros:
+                continue
+            
+            # Se o galho já está completo, não contribui para o custo
+            if len(passaros) == 4 and len(set(passaros)) == 1:
+                continue
+                
+            # Se é um galho quase completo (3/4), custo mínimo = 1 (movimento para completar)
+            if (galho, passaros[0]) in galhos_quase_prontos:
+                custo_estimado += 1
+                continue
+                
+            # Para outros galhos: mínimo de movimentos = número de pássaros - maior grupo
+            passaro_mais_comum = max(set(passaros), key=passaros.count)
+            custo_estimado += len([p for p in passaros if p != passaro_mais_comum])
+        
+        return custo_estimado
 
     def resolver_com_a_estrela(self, tabuleiro):
         self.inicia()
         fila_prioridade = PriorityQueue()
         contador = itertools.count()
-        fila_prioridade.put((0 + self.heuristica_admissivel(tabuleiro), next(contador), tabuleiro, [], 0))
+        fila_prioridade.put((0 + self.heuristica_quase_completo_admissivel(tabuleiro), next(contador), tabuleiro, [], 0))
         visitados = set()
 
         while not fila_prioridade.empty():
@@ -346,7 +379,7 @@ class Algoritmo:
 
                         if novo_estado_tuple not in visitados:
                             novo_custo = custo_acumulado + 1
-                            prioridade = novo_custo + self.heuristica_admissivel(novo_estado)
+                            prioridade = novo_custo + self.heuristica_quase_completo_admissivel(novo_estado)
                             fila_prioridade.put((
                                 prioridade,
                                 next(contador),

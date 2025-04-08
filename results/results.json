@@ -785,6 +785,30 @@
             "tempo_de_execucao": 0.22187376022338867,
             "quantidade_de_caminhos": 14,
             "quantidade_de_estados_gerados": 7512
+        },
+        {
+            "numero_da_execucao": 132,
+            "tempo_de_execucao": 0.14546585083007812,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 2220
+        },
+        {
+            "numero_da_execucao": 133,
+            "tempo_de_execucao": 0.07024788856506348,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 2873
+        },
+        {
+            "numero_da_execucao": 134,
+            "tempo_de_execucao": 0.02909994125366211,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 1027
+        },
+        {
+            "numero_da_execucao": 135,
+            "tempo_de_execucao": 0.14443540573120117,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 2329
         }
     ],
     "ucs": [
@@ -1441,6 +1465,30 @@
             "tempo_de_execucao": 0.3405647277832031,
             "quantidade_de_caminhos": 14,
             "quantidade_de_estados_gerados": 14166
+        },
+        {
+            "numero_da_execucao": 110,
+            "tempo_de_execucao": 0.27413129806518555,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 5501
+        },
+        {
+            "numero_da_execucao": 111,
+            "tempo_de_execucao": 0.13628673553466797,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 5501
+        },
+        {
+            "numero_da_execucao": 112,
+            "tempo_de_execucao": 0.08273005485534668,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 3798
+        },
+        {
+            "numero_da_execucao": 113,
+            "tempo_de_execucao": 0.2990431785583496,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 6536
         }
     ],
     "dfsi": [
@@ -2705,6 +2753,36 @@
             "tempo_de_execucao": 60.39199709892273,
             "quantidade_de_caminhos": 14,
             "quantidade_de_estados_gerados": 1809828
+        },
+        {
+            "numero_da_execucao": 110,
+            "tempo_de_execucao": 14.647966384887695,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 450956
+        },
+        {
+            "numero_da_execucao": 111,
+            "tempo_de_execucao": 11.999346733093262,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 450956
+        },
+        {
+            "numero_da_execucao": 112,
+            "tempo_de_execucao": 10.962880849838257,
+            "quantidade_de_caminhos": 12,
+            "quantidade_de_estados_gerados": 450956
+        },
+        {
+            "numero_da_execucao": 113,
+            "tempo_de_execucao": 5.139599323272705,
+            "quantidade_de_caminhos": 10,
+            "quantidade_de_estados_gerados": 201342
+        },
+        {
+            "numero_da_execucao": 114,
+            "tempo_de_execucao": 11.626827239990234,
+            "quantidade_de_caminhos": 11,
+            "quantidade_de_estados_gerados": 411138
         }
     ],
     "dfs": [
