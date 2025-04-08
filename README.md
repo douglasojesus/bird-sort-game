@@ -71,19 +71,18 @@ Cada algoritmo tem características distintas na forma de explorar o espaço de 
 ## 4. Busca de Custo Uniforme (UCS)
 
 ### Funcionamento
-- Versão generalizada do BFS que considera custos variáveis por movimento
+- **Algoritmo ótimo** que expande sempre o nó com menor custo acumulado
+- **Diferença chave**: Usa custo **fixo por movimento** (1 unidade)
 - Utiliza **fila de prioridade** para expandir sempre o nó com menor custo acumulado
-- Implementa critérios estratégicos específicos para o Bird Sort
+- Versão generalizada do BFS que considera custos variáveis por movimento
 
-### Critérios de Custo
-1. **Prioridade Máxima (0.001)**: Completar grupos de 4 pássaros iguais
-2. **Alta Prioridade (0.1)**: Formar grupos de 3 pássaros iguais
-3. **Prioridade Média (0.5)**: Movimentos para galhos vazios
-4. **Penalidade (10.0)**: Movimentos não estratégicos
-
-### Características
-- **Completo** e **Ótimo**: Encontra a solução de menor custo total
-- **Complexidade**: O(b^(1+C/ε)) onde C é o custo da solução ótima
+### Características Atualizadas
+| Propriedade | Descrição | 
+|------------|-----------|
+| **Completeza** | Garante encontrar solução se existir |
+| **Otimalidade** | Encontra solução com menor número de movimentos |
+| **Estratégia** | Equivalente ao BFS para custos uniformes |
+| **Complexidade** | O(b^d) - Exponencial na profundidade da solução |
 
 ### Aplicação
 - Produz soluções mais inteligentes que BFS/DFS
