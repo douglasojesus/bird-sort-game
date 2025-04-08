@@ -217,20 +217,25 @@ Embora a heurística heurística_modular_simples apresente um resultado melhor e
 **Método:** `heuristica_prioriza_quase_prontos()`  
 **Algoritmo:** A* clássico
 
-### 📊 Métrica de Avaliação
+### 🎯 Objetivo Principal
+Fornecer estimativas **conservadoras** que:
+1. Priorizam galhos quase completos (3/4)
+2. **Garantem admissibilidade** (nunca superestimam o custo real)
+3. Mantêm a otimalidade do A*
+
+### 📊 Métrica de Avaliação / Estratégia de Cálculo
 ```python
-def calcular_heuristica(estado):
-    pontos = 0
-    # Identifica grupos quase completos (3/4)
-    for galho, passaros in estado.items():
-        if len(passaros) == 3 and all(p == passaros[0] for p in passaros):
-            pontos -= 200  # Prioridade máxima
+def heuristica_prioriza_quase_prontos(self, estado):
+    ...
+        # Caso 2: Galho 3/4 (custo mínimo = 1)
+        if (galho, passaros[0]) in grupos_3_4:
+            custo_estimado += 1
             
-        # Verifica pares no topo
-        elif len(passaros) >= 2 and passaros[-1] == passaros[-2]:
-            pontos -= 30
-            
-    return pontos
+        # Caso 3: Galhos mistos
+        else:
+            tipo_maioritario = max(set(passaros), key=passaros.count)
+            custo_estimado += len([p for p in passaros if p != tipo_maioritario])
+    ...
 ```
 ### ✔️ Vantagens
 - Foco estratégico em completar grupos
@@ -240,7 +245,6 @@ def calcular_heuristica(estado):
 ### ❌ Limitações
 - Custo computacional elevado
 - Implementação mais complexa
-
 
 ## 📐 Heurística Modular Simples
 **Método:** `heuristica_modular_simples()`  
