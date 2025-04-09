@@ -216,12 +216,14 @@ Embora a heurística heurística_modular_simples apresente um resultado melhor e
 ## 🔍 Heurística de Priorização de Grupos
 **Método:** `heuristica_prioriza_quase_prontos()`  
 **Algoritmo:** A* clássico
+**Estratégia:** "Só me importo com o mínimo de movimentos para fechar grupos. Se um galho tem 3 vermelhos, ele é prioridade! O resto pode esperar."
 
 ### 🎯 Objetivo Principal
 Fornecer estimativas **conservadoras** que:
 1. Priorizam galhos quase completos (3/4)
 2. **Garantem admissibilidade** (nunca superestimam o custo real)
-3. Mantêm a otimalidade do A*
+3. Ignora confusões desnecessárias: Se um galho tem pássaros misturados, só conta os que realmente precisam sair.
+4. Mantêm a otimalidade do A*
 
 ### 📊 Métrica de Avaliação / Estratégia de Cálculo
 ```python
@@ -249,6 +251,12 @@ def heuristica_prioriza_quase_prontos(self, estado):
 ## 📐 Heurística Modular Simples
 **Método:** `heuristica_modular_simples()`  
 **Algoritmo:** A* Ponderado 
+**Estratégia:** "Vou dar uma nota pra cada galho: galho vazio = bom, galho misturado = ruim, muitos pássaros = complicado!"
+
+### 🎯 Objetivo Principal
+1. Conta pássaros: "Quanto mais pássaros, mais trabalho!" (✖️)
+2. Pune dispersão: "Galho com 4 cores diferentes? Caótico! Melhor ter só 1 cor." (⚠️)
+3. Bonifica galhos vazios: "Aqui cabe um grupo novo!" (✅)
 
 ### 📈 Fórmula Básica
 ```python
@@ -263,6 +271,12 @@ def heuristica_simples(estado):
 ## 🧩 Heurística de Liberação
 **Método:** `calcular_heuristica_liberacao()`  
 **Algoritmo:** Busca Gulosa
+**Estratégia:** "Se um galho está cheio de pássaros diferentes, isso é ruim! Vamos mover os que estão atrapalhando e ajudar os galhos que já estão quase completos (3/4)." Prioriza pássaros que podem se mover para muitos lugares ("Você aí, vermelho, você é móvel!").
+
+### 🎯 Objetivo Principal
+1. Bonifica galhos com 3 pássaros iguais ("Falta só um!").
+2. Pune galhos cheios de pássaros misturados ("Isso aqui tá um congestionamento!").
+3. Prioriza pássaros que podem se mover para muitos lugares ("Você aí, vermelho, você é móvel!").
 
 ### 🔧 Mecânica Principal
 ```python
@@ -285,6 +299,12 @@ def calcular_liberacao(estado):
 | Priorização Grupos | Alta | Finais de jogo | Alto |
 | Modular Simples    | Baixa | Análise inicial | Muito Baixo |
 | Liberação | Média | Situações de bloqueio | Moderado |
+
+- calcular_heuristica_liberacao(): Prioriza liberar espaço em galhos congestionados e bonifica grupos quase completos, focando em mobilidade. Mais agressiva, considera fatores como mobilidade e congestionamento, mas não garante otimalidade.
+
+- heuristica_prioriza_quase_prontos(): Foca em completar galhos com 3 pássaros iguais e estima movimentos restantes de forma conservadora. Foca apenas em movimentos essenciais para completar grupos, garantindo otimalidade no A*.
+
+- heuristica_modular_simples(): Avalia o estado com base na contagem total de pássaros, dispersão (quantos tipos diferentes por galho) de tipos e galhos vazios.
 
 # Análise Comparativa: BFS vs A* em um Problema de Rearranjo de Galhos
 
@@ -419,7 +439,6 @@ Estados explorados: aproximadamente 2400
 ⚠️ **Greedy** pode ser rápido, mas menos consistente  
 ⏳ **BFS/UCS** garantem otimalidade com alto custo computacional  
 ⚡ **DFS/DFSi** são rápidos, mas arriscados para problemas complexos
-
 
 # Instruções de Execução do Bird Sort Game
 
