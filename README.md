@@ -416,15 +416,15 @@ Estados explorados: aproximadamente 2400
 ![Comparação Heurísticas](docs/splot/comparacao_heuristicas.png)  
 **Resultados**:  
 1. A* Ponderado: mais rápido (0.004s médio)  
-2. A*: intermediário (0.377s)  
-3. Greedy: intermediário (0.423s)
+2. A*: intermediário (0.081s)  
+3. Greedy: intermediário (0.369)
 
 ---
 
 ### 6. Tempo Médio por Algoritmo
 ![Tempo Médio](docs/splot/tempo_medio_execucao.png)  
 **Ranking**:  
-- Piores: BFS (~15s) e UCS (~1.5s)  
+- Pior: BFS (~17s) 
 - Melhores: DFS (0.007s) e A* Ponderado (0.004s)  
 
 ---
