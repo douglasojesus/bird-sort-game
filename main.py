@@ -1,192 +1,112 @@
 from src.functions import *
-from src.algorithm import *
+from src.algorithms.bfs import BFS
+from src.algorithms.dfs import DFS
+from src.algorithms.iddfs import IDDFS
+from src.algorithms.ucs import UCS
+from src.algorithms.a_star import AStar
+from src.algorithms.weighted_a_star import WeightedAStar
+from src.algorithms.greedy import Greedy
 from src.interface import BirdSortGame
 from results.results import *
 
+def run_and_register_algorithm(algorithm_class, algorithm_name, board):
+    print(f"\nSolving with {algorithm_name}...")
+    algorithm = algorithm_class()
+    algorithm.solve(board)
+    time, path_length, states_generated = algorithm.display_results()
+    registrar_execucao(algorithm_name.lower().replace(" ", "_"), time, path_length, states_generated)
+
 def main():
     
-    galhos = int(input('Número de galhos (maior que 1 e menor que 9): '))
-    while galhos <= 1 or galhos >= 9:
-        galhos = int(input('Número de galhos (maior que 1 e menor que 9): '))
+    branches = int(input('Number of branches (must be greater than 1 and less than 9): '))
+    while branches <= 1 or branches >= 9:
+        branches = int(input('Number of branches (must be greater than 1 and less than 9): '))
 
-    escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ").strip().upper()
-    while escolha != 'M' and escolha != 'A':
-        escolha = input("Se você quer usar um tabuleiro aleatório pressione 'A', se quer adicionar um tabuleiro manualmente, adicione 'M': ").strip().upper()    
+    choice = input("Press 'A' for a random board, or 'M' to create a board manually: ").strip().upper()
+    while choice not in ['M', 'A']:
+        choice = input("Press 'A' for a random board, or 'M' to create a board manually: ").strip().upper()
 
-    if escolha == 'M':
-        tabuleiro = define_tabuleiro_manualmente(galhos+2)
-        while tabuleiro == None:
-            tabuleiro = define_tabuleiro_manualmente(galhos+2)
+    if choice == 'M':
+        board = define_tabuleiro_manualmente(branches + 2)
+        while board is None:
+            board = define_tabuleiro_manualmente(branches + 2)
     else:
-        tabuleiro = define_tabuleiro(galhos)
-        tabuleiro = popula_tabuleiro(tabuleiro)
-    print(tabuleiro)
-    exibe_tabuleiro(tabuleiro)
+        board = define_tabuleiro(branches)
+        board = popula_tabuleiro(board)
 
-    possiveis_escolhas_origem_destino = {}
-    for i in range(galhos+2):
-        possiveis_escolhas_origem_destino[i+1] = 'Galho '+str(i+1)
+    print(board)
+    exibe_tabuleiro(board)
 
-    if verifica_se_tabuleiro_esta_completo(tabuleiro):
-        print("Tabuleiro já está solucionado! Parabéns, não precisou fazer nada.")
+    possible_choices_origin_destination = {i + 1: f'Galho {i + 1}' for i in range(branches + 2)}
+
+    if verifica_se_tabuleiro_esta_completo(board):
+        print("The board is already solved! Congratulations, you didn't have to do anything.")
         return
 
-    modo = input("Deseja jogar (J) ou ver a solução automática (S)? ").strip().upper()
-    if modo == 'S':
-
-        print("\nResolvendo o jogo com BFS...")
-        bfs = Algoritmo()
-        bfs.resolver_com_bfs(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = bfs.exibe()
-
-        registrar_execucao('bfs', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com Busca Gulosa...")
-        greedy = Algoritmo()
-        greedy.resolver_com_busca_gulosa(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = greedy.exibe()
-
-        registrar_execucao('greedy', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com A estrela Ponderada...")
-        a_star_p = Algoritmo()
-        a_star_p.resolver_com_a_estrela_ponderado(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = a_star_p.exibe()
-
-        registrar_execucao('a_star_p', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com A*...")
-        a_star = Algoritmo()
-        a_star.resolver_com_a_estrela(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = a_star.exibe()
-
-        registrar_execucao('a_star', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com Custo Uniforme...")
-        ucs = Algoritmo()
-        ucs.resolver_com_custo_uniforme(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = ucs.exibe()
-
-        registrar_execucao('ucs', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com DFS...")
-        dfs = Algoritmo()
-        dfs.resolver_com_dfs(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = dfs.exibe()
-
-        registrar_execucao('dfs', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com DFS Iterarivo...")
-        dfsi = Algoritmo()
-        dfsi.resolver_com_interatividade(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = dfsi.exibe()
-
-        registrar_execucao('dfsi', tempo, qntd_caminhos, estados_gerados)
+    mode = input("Play (J) or see the automatic solution (S)? ").strip().upper()
+    if mode == 'S':
+        run_and_register_algorithm(BFS, "BFS", board)
+        run_and_register_algorithm(Greedy, "Greedy", board)
+        run_and_register_algorithm(WeightedAStar, "Weighted A*", board)
+        run_and_register_algorithm(AStar, "A*", board)
+        run_and_register_algorithm(UCS, "UCS", board)
+        run_and_register_algorithm(DFS, "DFS", board)
+        run_and_register_algorithm(IDDFS, "IDDFS", board)
 
         exibir_resultados_comparativos()
     
     else:
-        tipo_de_jogo_escolha = input("Você quer jogar no console (C) ou na interface gráfica (I)? ").strip().upper()
-        while tipo_de_jogo_escolha != 'C' and tipo_de_jogo_escolha != 'I':
-            tipo_de_jogo_escolha = input("Escolha 'C' (console) ou 'I' (interface): ").strip().upper()
+        game_type_choice = input("Play in the console (C) or in the graphical interface (I)? ").strip().upper()
+        while game_type_choice not in ['C', 'I']:
+            game_type_choice = input("Choose 'C' (console) or 'I' (interface): ").strip().upper()
 
-        if tipo_de_jogo_escolha == 'I':
-            game = BirdSortGame(tabuleiro)
+        if game_type_choice == 'I':
+            game = BirdSortGame(board)
             game.run()
         else:
             while True:
-                # Para conseguir uma dica, vamos pegar o estado atual e utilizar algum algoritmo, como o A*, para dizer o próximo passo (primeiro movimento do caminho resultado).
-                
-                escolha_dica = input("Se precisar de dica, escreva 'D' e pressione enter. Se não, pressione apenas enter. ")
-                if escolha_dica == 'D' or escolha_dica == 'd':
-                    print("\nProcurando próximo movimento...")
-                    algoritmo = Algoritmo()
-                    dica = algoritmo.consegue_dica(tabuleiro=tabuleiro)
-                    print("Movimento:")
-                    print(dica)
+                hint_choice = input("If you need a hint, type 'D' and press enter. Otherwise, just press enter. ")
+                if hint_choice.lower() == 'd':
+                    print("\nLooking for the next move...")
+                    algorithm = AStar()
+                    hint = algorithm.get_hint(board=board)
+                    print("Move:")
+                    print(hint)
                     
-                escolha_origem = int(input("Escolha o galho de origem: "))        
-                escolha_destino = int(input("Escolha o galho de destino: "))
+                origin_choice = int(input("Choose the origin branch: "))
+                destination_choice = int(input("Choose the destination branch: "))
 
-                while not (realiza_voo_passaro(tabuleiro, possiveis_escolhas_origem_destino[escolha_origem], possiveis_escolhas_origem_destino[escolha_destino])):
-                    print(f"Pássaro não pode sair da origem {possiveis_escolhas_origem_destino[escolha_origem]} e ir para o destino {possiveis_escolhas_origem_destino[escolha_destino]}.")
-                    escolha_origem = int(input("Escolha outro galho de origem: "))
-                    escolha_destino = int(input("Escolha outro galho de destino: "))
+                while not (realiza_voo_passaro(board, possible_choices_origin_destination[origin_choice], possible_choices_origin_destination[destination_choice])):
+                    print(f"The bird cannot fly from {possible_choices_origin_destination[origin_choice]} to {possible_choices_origin_destination[destination_choice]}.")
+                    origin_choice = int(input("Choose another origin branch: "))
+                    destination_choice = int(input("Choose another destination branch: "))
 
-                if verifica_se_ganhou(tabuleiro):
-                    print("Parabéns!")
+                if verifica_se_ganhou(board):
+                    print("Congratulations!")
                     break
 
-                exibe_tabuleiro(tabuleiro)
+                exibe_tabuleiro(board)
 
-def gera_execucao_de_solucao_automatica_para_registro(galhos, numero_de_execucoes):
-    for i in range(numero_de_execucoes):
-        print("Execução número", i+1)
-        tabuleiro = define_tabuleiro(galhos)
-        tabuleiro = popula_tabuleiro(tabuleiro)
-        exibe_tabuleiro(tabuleiro)
+def generate_automatic_solution_execution_for_registration(branches, number_of_executions):
+    for i in range(number_of_executions):
+        print("Execution number", i + 1)
+        board = define_tabuleiro(branches)
+        board = popula_tabuleiro(board)
+        exibe_tabuleiro(board)
 
-        possiveis_escolhas_origem_destino = {}
-        for i in range(galhos+2):
-            possiveis_escolhas_origem_destino[i+1] = 'Galho '+str(i+1)
-
-        if verifica_se_tabuleiro_esta_completo(tabuleiro):
-            print("Tabuleiro já está solucionado! Parabéns, não precisou fazer nada.")
+        if verifica_se_tabuleiro_esta_completo(board):
+            print("The board is already solved! Congratulations, you didn't have to do anything.")
             return
 
-        print("\nResolvendo o jogo com BFS...")
-        bfs = Algoritmo()
-        bfs.resolver_com_bfs(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = bfs.exibe()
-
-        registrar_execucao('bfs', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com Busca Gulosa...")
-        greedy = Algoritmo()
-        greedy.resolver_com_busca_gulosa(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = greedy.exibe()
-
-        registrar_execucao('greedy', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com A estrela Ponderada...")
-        a_star_p = Algoritmo()
-        a_star_p.resolver_com_a_estrela_ponderado(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = a_star_p.exibe()
-
-        registrar_execucao('a_star_p', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com A*...")
-        a_star = Algoritmo()
-        a_star.resolver_com_a_estrela(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = a_star.exibe()
-
-        registrar_execucao('a_star', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com Custo Uniforme...")
-        ucs = Algoritmo()
-        ucs.resolver_com_custo_uniforme(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = ucs.exibe()
-
-        registrar_execucao('ucs', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com DFS...")
-        dfs = Algoritmo()
-        dfs.resolver_com_dfs(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = dfs.exibe()
-
-        registrar_execucao('dfs', tempo, qntd_caminhos, estados_gerados)
-
-        print("\nResolvendo o jogo com DFS Iterarivo...")
-        dfsi = Algoritmo()
-        dfsi.resolver_com_interatividade(tabuleiro)
-        tempo, qntd_caminhos, estados_gerados = dfsi.exibe()
-
-        registrar_execucao('dfsi', tempo, qntd_caminhos, estados_gerados)
+        run_and_register_algorithm(BFS, "BFS", board)
+        run_and_register_algorithm(Greedy, "Greedy", board)
+        run_and_register_algorithm(WeightedAStar, "Weighted A*", board)
+        run_and_register_algorithm(AStar, "A*", board)
+        run_and_register_algorithm(UCS, "UCS", board)
+        run_and_register_algorithm(DFS, "DFS", board)
+        run_and_register_algorithm(IDDFS, "IDDFS", board)
 
         exibir_resultados_comparativos()
 
-
 if __name__ == '__main__':
-    #gera_execucao_de_solucao_automatica_para_registro(4, 20)
     main()
-
